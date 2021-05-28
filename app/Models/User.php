@@ -25,11 +25,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'surname', 'email', 'phone', 'nif', 'address', 'password', 'notifications'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -60,4 +56,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function proccedings()
+    {
+        return $this->belongsToMany('App\Models\Procceding')->withTimestamps();
+    }
+
+    public function documents()
+    {
+        return $this->hasMany('App\Models\Document')->withTimestamps();
+    }
 }
