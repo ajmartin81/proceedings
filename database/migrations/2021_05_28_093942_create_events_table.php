@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->date('event_date');
+            $table->timestamp('event_date');
             $table->foreignId('proceeding_id');
             $table->foreignId('user_id');
             $table->timestamps();

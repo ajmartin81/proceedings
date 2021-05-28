@@ -9,11 +9,11 @@ class Proceeding extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reference','description','site','status', 'begin_at','end_at'];
+    protected $fillable = ['reference','title', 'description','site','status', 'begin_at','end_at'];
 
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany('App\Models\User')->withTimestamps();
     }
 
     public function documents()

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('rgpd_accept_at')->nullable();
+            $table->timestamp('last_login')->default(now());
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

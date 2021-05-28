@@ -57,9 +57,9 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function proccedings()
+    public function proceedings()
     {
-        return $this->belongsToMany('App\Models\Procceding')->withTimestamps();
+        return $this->belongsToMany('App\Models\Proceeding')->withTimestamps();
     }
 
     public function documents()

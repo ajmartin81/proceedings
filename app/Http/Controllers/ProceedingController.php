@@ -9,9 +9,9 @@ class ProceedingController extends Controller
 {
     public function index()
     {
-        //
+        return 'Expedientes de usuario';
     }
-
+    /*
     public function create()
     {
         //
@@ -41,4 +41,5 @@ class ProceedingController extends Controller
     {
         //
     }
+    */
 }

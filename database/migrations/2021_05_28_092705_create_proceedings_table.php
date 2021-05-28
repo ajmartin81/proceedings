@@ -16,6 +16,7 @@ class CreateProceedingsTable extends Migration
         Schema::create('proceedings', function (Blueprint $table) {
             $table->id();
             $table->string('reference')->unique();
+            $table->string('title');
             $table->text('description')->nullable();
             $table->string('site')->nullable();
             $table->string('status')->default('Abierto');
