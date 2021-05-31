@@ -13,6 +13,12 @@ class ProceedingRepository {
         return $proceedings;
     }
 
+    public function getProceedingById($proceedingId)
+    {
+        $proceeding = Proceeding::where('id', $proceedingId)->first();
+        return $proceeding;
+    }
+
     public function getUserProceedings($userId)
     {
         $user = new UserRepository;

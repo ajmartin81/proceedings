@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
+    'usermenu_enabled' => false,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
@@ -146,9 +146,9 @@ return [
     */
 
     'sidebar_mini' => true,
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
@@ -261,7 +261,7 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'profile',
+            'route'  => 'profile.show',
             'icon' => 'fas fa-fw fa-user',
             'usermenu' => true,
         ],
@@ -343,7 +343,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

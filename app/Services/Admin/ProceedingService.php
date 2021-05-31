@@ -17,6 +17,11 @@ class ProceedingService {
 
     }
 
+    public function getProceedingById($proceedingId){
+        return $this->proceedingRepository->getProceedingById($proceedingId);
+
+    }
+
     public function getUserProceedings($userId){
         return $this->proceedingRepository->getUserProceedings($userId);
 

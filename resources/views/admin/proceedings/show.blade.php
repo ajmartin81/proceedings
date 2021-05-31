@@ -39,7 +39,7 @@
                                 </p>
                             </td>
                             <td class="d-flex justify-content-end">
-                                <a href="#" type="button" class="btn btn-success mr-2" title="Subir documentación"><i class="fas fa-file-upload"></i></a>
+                                <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-success mr-2" title="Subir documentación"><i class="fas fa-file-upload"></i></a>
                                 <a href="#" type="button" class="btn btn-secondary mr-2" title="Añadir anotación"><i class="fas fa-file-alt"></i></a>
                                 <a href="#" type="button" class="btn btn-secondary mr-2" title="Añadir evento"><i class="fas fa-calendar-plus"></i></a>
                                 <a href="#" type="button" class="btn btn-info" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
