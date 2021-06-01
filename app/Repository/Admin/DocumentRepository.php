@@ -4,7 +4,7 @@ namespace App\Repository\Admin;
 
 use App\Models\Document;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DocumentRepository {
@@ -13,7 +13,7 @@ class DocumentRepository {
     {
         if($request->hasFile('documento')){
             $file = $request->file('documento');
-            $url = encrypt($file->getClientOriginalName()). '.'.$file->getClientOriginalExtension();
+            $url = substr(encrypt($file->getClientOriginalName()),0,128). '.'.$file->getClientOriginalExtension();
 
             $data['title']  = $request->get('titulo');
             $data['name']   = $file->getClientOriginalName();

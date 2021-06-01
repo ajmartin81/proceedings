@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class AnnotationController extends Controller
 {
-    public function index()
+    public function index($proceedingId)
     {
-        //
+        
     }
 
     public function create()

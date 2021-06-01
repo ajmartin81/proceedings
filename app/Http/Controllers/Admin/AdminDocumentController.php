@@ -17,6 +17,7 @@ class AdminDocumentController extends Controller
     {
         $this->documentService = new DocumentService;
     }
+    
     public function index()
     {
         //

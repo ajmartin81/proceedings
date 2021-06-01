@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDocumentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminAnnotationController;
+use App\Http\Controllers\Admin\AdminDocumentController;
+use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminProceedingController;
+
 use App\Http\Controllers\ProceedingController;
 
 /*
@@ -42,6 +45,12 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('{proceedingId}/upload', [AdminDocumentController::class, 'create'])->name('document.create');
         Route::post('{proceedingId}/upload', [AdminDocumentController::class, 'store'])->name('document.store');
+
+        Route::get('{proceedingId}/annotation/new', [AdminAnnotationController::class, 'create'])->name('annotation.create');
+        Route::post('{proceedingId}/annotation/add', [AdminAnnotationController::class, 'store'])->name('annotation.store');
+
+        Route::get('{proceedingId}/event/new', [AdminEventController::class, 'create'])->name('event.create');
+        Route::post('{proceedingId}/event/add', [AdminEventController::class, 'store'])->name('event.store');
 });
 
 });

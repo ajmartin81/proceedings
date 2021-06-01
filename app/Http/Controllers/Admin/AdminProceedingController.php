@@ -34,7 +34,8 @@ class AdminProceedingController extends Controller
 
     public function create($userId)
     {
-        return view('admin.proceedings.new', compact('userId'));
+        $user = $this->userService->getUserById($userId);
+        return view('admin.proceedings.new', compact('user'));
     }
 
     public function store(Request $request, $userId)

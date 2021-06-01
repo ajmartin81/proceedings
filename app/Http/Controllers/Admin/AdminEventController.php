@@ -4,23 +4,39 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Proceeding;
+use App\Services\Admin\EventService;
+use App\Services\Admin\ProceedingService;
 use Illuminate\Http\Request;
 
 class AdminEventController extends Controller
 {
+    protected $eventService;
+
+    public function __construct()
+    {
+        $this->eventService = new EventService;
+    }
+
     public function index()
     {
         //
     }
 
-    public function create()
+    public function create($proceedingId)
     {
-        //
+        $proceedingService = new ProceedingService;
+        $proceeding = new Proceeding;
+        $proceeding = $proceedingService->getProceedingById($proceedingId);
+        
+        return view('admin.events.new', compact('proceeding'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $proceedingId)
     {
-        //
+        $this->eventService->createNewEvent($request, $proceedingId);
+
+        return redirect()->route('proceedings');
     }
 
     public function show(Event $event)

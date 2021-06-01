@@ -3,7 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Repository\Admin\DocumentRepository;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 
 class DocumentService {
     protected $documentRepository;
