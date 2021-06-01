@@ -18,16 +18,16 @@ class Proceeding extends Model
 
     public function documents()
     {
-        return $this->hasMany('App\Models\Document')->withTimestamps();
+        return $this->hasMany('App\Models\Document');
     }
 
     public function events()
     {
-        return $this->hasMany('App\Models\Event')->withTimestamps();
+        return $this->hasMany('App\Models\Event');
     }
 
     public function annotations()
     {
-        return $this->hasMany('App\Models\Annotation')->withTimestamps();
+        return $this->hasMany('App\Models\Annotation');
     }
 }

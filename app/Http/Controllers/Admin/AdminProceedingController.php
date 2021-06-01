@@ -52,9 +52,11 @@ class AdminProceedingController extends Controller
         return redirect()->route('proceedings');
     }
 
-    public function show(Proceeding $proceeding)
+    public function show($proceedingId)
     {
-        //
+        $proceeding = $this->proceedingService->getProceedingById($proceedingId);
+
+        return view('admin.proceedings.proceeding', compact('proceeding'));
     }
 
     public function edit(Proceeding $proceeding)

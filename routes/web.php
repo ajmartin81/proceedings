@@ -42,9 +42,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{userId}/proceedings', [AdminProceedingController::class, 'userProceedings'])->name('user.proceedings');
         Route::get('{userId}/proceeding/new', [AdminProceedingController::class, 'create'])->name('proceeding.create');
         Route::post('{userId}/proceeding/add', [AdminProceedingController::class, 'store'])->name('proceeding.store');
+        Route::get('{proceedingId}/show', [AdminProceedingController::class, 'show'])->name('proceeding.show');
 
-        Route::get('{proceedingId}/upload', [AdminDocumentController::class, 'create'])->name('document.create');
-        Route::post('{proceedingId}/upload', [AdminDocumentController::class, 'store'])->name('document.store');
+        Route::get('{proceedingId}/document/upload', [AdminDocumentController::class, 'create'])->name('document.create');
+        Route::post('{proceedingId}/document/upload', [AdminDocumentController::class, 'store'])->name('document.store');
+        Route::get('{documentId}/show', [AdminDocumentController::class, 'show'])->name('document.show');
 
         Route::get('{proceedingId}/annotation/new', [AdminAnnotationController::class, 'create'])->name('annotation.create');
         Route::post('{proceedingId}/annotation/add', [AdminAnnotationController::class, 'store'])->name('annotation.store');

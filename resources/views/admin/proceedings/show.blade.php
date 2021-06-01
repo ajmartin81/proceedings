@@ -42,7 +42,7 @@
                                 <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-success mr-2" title="Subir documentación"><i class="fas fa-file-upload"></i></a>
                                 <a href="{{ route('annotation.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-secondary mr-2" title="Añadir anotación"><i class="fas fa-file-alt"></i></a>
                                 <a href="{{ route('event.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-secondary mr-2" title="Añadir evento"><i class="fas fa-calendar-plus"></i></a>
-                                <a href="#" type="button" class="btn btn-info" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
+                                <a href="{{ route('proceeding.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-info" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -65,7 +65,26 @@
                 { responsivePriority: 2, targets: -1 },
                 { orderable: false, targets: -1 }
             ],
-            autoWidth: false
+            autoWidth: false,
+            language: { 
+            processing: "Procesando...",
+            lengthMenu: "Mostrar _MENU_ ",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            search: "_INPUT_",
+            searchPlaceholder: "Buscar...",
+            infoThousands: ",",
+            loadingRecords: "Cargando...",
+            paginate: {
+                first: "Primero",
+                last: "Último",
+                next: "Siguiente",
+                previous: "Anterior"
+            },
+            info: "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
+        }
         });
     </script>
 @stop
