@@ -9,7 +9,9 @@
             <h1>Listado de usuarios</h1>
         </div>
         <div class="col-md-2">
-            <a href="{{ route('user.create') }}" class="btn btn-primary w-100" >Añadir usuario</a>
+            @can('user.add')
+                <a href="{{ route('user.create') }}" class="btn btn-primary w-100" >Añadir usuario</a>
+            @endcan
         </div>
     </div>
     
@@ -33,7 +35,9 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td class="d-flex justify-content-end">
-                                <a href="{{ route('proceeding.create', ['userId' => $user->id]) }}" class="btn btn-success mr-3" title="Crear nuevo expediente"><i class="fas fa-folder-plus"></i></a>
+                                @can('proceeding.add')
+                                    <a href="{{ route('proceeding.create', ['userId' => $user->id]) }}" class="btn btn-success mr-3" title="Crear nuevo expediente"><i class="fas fa-folder-plus"></i></a>
+                                @endcan
                                 <a href="{{ route('user.proceedings', ['userId' => $user->id]) }}" class="btn btn-info mr-3" title="Ver expedientes"><i class="far fa-folder-open"></i></a>
                                 <a href="#" type="button" class="btn btn-secondary" title="Editar cliente"><i class="fas fa-user-cog"></i></a>
                             </td>

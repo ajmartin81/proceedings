@@ -36,7 +36,7 @@ class AdminDocumentController extends Controller
     {
         $this->documentService->uploadDocument($request, $proceedingId);
         
-        return redirect()->route('index');
+        return redirect()->route('proceeding.show', ['proceedingId' => $proceedingId]);
     }
 
     public function show(Document $document)

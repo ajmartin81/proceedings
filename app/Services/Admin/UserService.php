@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Repository\Admin\UserRepository;
+use Illuminate\Support\Facades\Password;
 
 class UserService {
     protected $userRepository;
@@ -27,6 +28,11 @@ class UserService {
 
     public function addUser($data, $rol)
     {       
-        return $this->userRepository->addUser($data, $rol);
+        $user = $this->userRepository->addUser($data, $rol);
+
+        $token = Password::getRepository()->create($user);
+        $user->sendPasswordResetNotification($token);
+        
+        return $user;
     }
 }

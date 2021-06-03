@@ -34,9 +34,11 @@
                         @endif
 
                         @foreach($proceeding->users as $user)
-                            {{ $user->name }} {{ $user->surname }}
-                            @if($loop->count > 1 && !$loop->last)
-                                ,
+                            @if(!$user->hasRole('Colaborador'))
+                                {{ $user->name }} {{ $user->surname }}
+                                @if($loop->count > 1 && !$loop->last)
+                                    ,
+                                @endif
                             @endif
                         @endforeach
                     </p>

@@ -66,4 +66,13 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Document')->withTimestamps();
     }
+
+    public function isClient()
+    {
+        if($this->hasRole('Cliente')){
+            return true;
+        }
+
+        return false;
+    }
 }

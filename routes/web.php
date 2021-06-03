@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminProceedingController;
 
 use App\Http\Controllers\ProceedingController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,18 +22,14 @@ use App\Http\Controllers\ProceedingController;
 |
 */
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/', [UserController::class, 'index'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-                return view('dashboard');
-            })->name('dashboard');
+    //Route::get('/', [UserController::class, 'index'])->name('dashboard');
     Route::get('/proceedings', [ProceedingController::class, 'index'])->name('proceedings');
 
-    Route::group(['prefix' => 'admin'], function () {
-        Route::get('/', [AdminHomeController::class, 'index'])->name('index');
+    Route::group(['prefix' => 'admin', 'middleware' => ['can:admin']], function () {
+        Route::get('/', [AdminHomeController::class, 'index'])->name('admin');
         Route::get('users', [AdminUserController::class, 'index'])->name('users');
         Route::get('user/new', [AdminUserController::class, 'create'])->name('user.create');
         Route::post('user/new', [AdminUserController::class, 'store'])->name('user.store');
@@ -53,6 +50,6 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('{proceedingId}/event/new', [AdminEventController::class, 'create'])->name('event.create');
         Route::post('{proceedingId}/event/add', [AdminEventController::class, 'store'])->name('event.store');
-});
+    });
 
 });

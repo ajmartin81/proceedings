@@ -20,7 +20,9 @@ class RoleSeeder extends Seeder
         $cliente = Role::create(['name' => 'Cliente']);
         $colaborador = Role::create(['name' => 'Colaborador']);
 
-        // AÑadinos los permisos
-        
+        // Añadinos los permisos
+        Permission::create(['name' => 'admin'])->syncRoles([$abogado, $colaborador]);
+        Permission::create(['name' => 'proceeding.add'])->syncRoles([$abogado]);
+        Permission::create(['name' => 'user.add'])->syncRoles([$abogado]);
     }
 }
