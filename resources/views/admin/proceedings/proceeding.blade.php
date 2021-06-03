@@ -47,12 +47,13 @@
                     <h3>Anotaciones</h3>
                 </div>
                 <div class="card-body">
-                    <p>
-                        @foreach($proceeding->annotations as $annotation)
+                    @foreach($proceeding->annotations as $annotation)
+                        <p>
                             <strong>{{ $annotation->title }} :</strong>
                             {{ $annotation->description}}
-                        @endforeach
-                    </p>
+                        </p>
+                        
+                    @endforeach
                 </div>
             </div>
             <div class="card">
@@ -60,12 +61,12 @@
                     <h3>Eventos</h3>
                 </div>
                 <div class="card-body">
-                    <p>
-                        @foreach($proceeding->events as $event)
+                    @foreach($proceeding->events as $event)
+                        <p>
                             <strong>{{ substr($event->event_date,0,10) }} | {{ $event->title }} :</strong>
                             {{ $event->description}}
-                        @endforeach
-                    </p>
+                        </p>
+                    @endforeach
                 </div>
             </div>
         </div>
