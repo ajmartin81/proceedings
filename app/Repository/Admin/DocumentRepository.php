@@ -4,12 +4,11 @@ namespace App\Repository\Admin;
 
 use App\Models\Document;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DocumentRepository {
 
-    public function uploadDocument(Request $request, $proceedingId)
+    public function uploadDocument($request, $proceedingId)
     {
         if($request->hasFile('documento')){
             $file = $request->file('documento');

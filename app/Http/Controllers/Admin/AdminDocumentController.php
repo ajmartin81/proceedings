@@ -8,6 +8,7 @@ use App\Services\Admin\DocumentService;
 use App\Models\Document;
 use App\Models\Proceeding;
 use Illuminate\Http\Request;
+use App\Http\Requests\DocumentRequest;
 
 class AdminDocumentController extends Controller
 {
@@ -32,7 +33,7 @@ class AdminDocumentController extends Controller
         return view('admin.documents.upload', compact('proceeding'));
     }
 
-    public function store(Request $request, $proceedingId)
+    public function store(DocumentRequest $request, $proceedingId)
     {
         $this->documentService->uploadDocument($request, $proceedingId);
         

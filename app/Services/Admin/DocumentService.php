@@ -3,7 +3,6 @@
 namespace App\Services\Admin;
 
 use App\Repository\Admin\DocumentRepository;
-use Illuminate\Http\Request;
 
 class DocumentService {
     protected $documentRepository;
@@ -13,7 +12,7 @@ class DocumentService {
         $this->documentRepository = new DocumentRepository;
     }
 
-    public function uploadDocument(Request $request, $proceedingId)
+    public function uploadDocument($request, $proceedingId)
     {
         return $this->documentRepository->uploadDocument($request, $proceedingId);
     }

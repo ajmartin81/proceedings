@@ -19,6 +19,17 @@
             <form action="{{ route('document.store', ['proceedingId' => $proceeding->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
+                    
+                    @if($errors->any())
+                        <div class="col-12">
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <p>{{ $error }}</p>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="col-12">
                         <div class="form-group">
                             <input type="text" class="form-control" name="titulo" placeholder="Titulo *" required>
@@ -26,7 +37,7 @@
                     </div>
                     <div class="col-12">
                         <div class="form-group">
-                            <input type="file" class="form-control" name="documento" placeholder="Dependencias" required>
+                            <input type="file" class="form-control" name="documento" accept=".jpg,.png,.pdf,.doc,.docx" required>
                         </div>
                     </div>
                 </div>
