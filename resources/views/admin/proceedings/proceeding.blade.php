@@ -38,7 +38,7 @@
                                         @endif
                 
                                         @foreach($proceeding->users as $user)
-                                            @if(!$user->hasRole('Colaborador'))
+                                            @if(!$user->hasRole('Colaborador') && !$user->hasRole('Abogado'))
                                                 {{ $user->name }} {{ $user->surname }}
                                                 @if($loop->count > 1 && !$loop->last)
                                                     ,
@@ -49,11 +49,15 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="row">
-                                        <div class="col-md-4"></div>
                                         <div class="col-md-4">
-                                            <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100" title="Editar clientes"><i class="fas fa-user-friends"></i>&nbsp;Modificar datos</a>
+                                            <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-unlock-alt"></i>&nbsp;Estado</a>
                                         </div>
-                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4">
+                                            <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-user-edit"></i>&nbsp;Usuarios</a>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-edit"></i>&nbsp;Datos</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

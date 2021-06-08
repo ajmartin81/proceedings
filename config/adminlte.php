@@ -244,21 +244,22 @@ return [
             'topnav' => true,
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
             'text'        => 'users',
             'route'         => 'users',
             'icon'        => 'fas fa-fw fa-users',
+            'can'           => 'user.add',
         ],
         [
             'text'        => 'proceedings',
             'route'         => 'proceedings',
             'icon'        => 'fas fa-fw fa-folder',
+            'can'           => 'admin'
         ],
-        ['header' => 'account_settings'],
+        [
+            'text'        => 'my_proceedings',
+            'route'         => 'proceedings',
+            'icon'        => 'fas fa-fw fa-folder-open',
+        ],
         [
             'text' => 'profile',
             'route'  => 'profile.show',

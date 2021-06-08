@@ -30,4 +30,13 @@ class UserRepository {
         $newUser->roles()->Sync($rol);
         return $newUser;
     }
+
+    public function updateUser($userId, $data, $rol)   
+    {
+        $user = $this->getUserById($userId);
+        $user->update($data);
+        $user->roles()->Sync($rol);
+        
+        return $user;
+    }
 }

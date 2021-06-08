@@ -40,13 +40,13 @@ class AdminDocumentController extends Controller
         
         $document = $this->documentService->getDocument($documentId);
         $user = User::find(Auth::id());
+
         if(Auth::id() == $document->user_id || $user->can('admin')){
             $documentPath = storage_path('app/public/'.$document->proceeding_id.'/'.$document->url);
             return response()->download($documentPath, $document->name);
         }
         
         return abort(403);
-        
     }
 
     public function edit(Document $document)

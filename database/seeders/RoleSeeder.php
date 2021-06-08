@@ -21,8 +21,14 @@ class RoleSeeder extends Seeder
         $colaborador = Role::create(['name' => 'Colaborador']);
 
         // Añadinos los permisos
-        Permission::create(['name' => 'admin'])->syncRoles([$abogado, $colaborador]);
+        Permission::create(['name' => 'admin'])->syncRoles([$abogado]);
         Permission::create(['name' => 'proceeding.add'])->syncRoles([$abogado]);
+        Permission::create(['name' => 'proceeding.edit'])->syncRoles([$abogado]);
         Permission::create(['name' => 'user.add'])->syncRoles([$abogado]);
+        Permission::create(['name' => 'user.edit'])->syncRoles([$abogado]);
+
+        Permission::create(['name' => 'status.edit'])->syncRoles([$abogado, $colaborador]);
+        Permission::create(['name' => 'event.add'])->syncRoles([$abogado, $colaborador]);
+        Permission::create(['name' => 'event.edit'])->syncRoles([$abogado]);
     }
 }

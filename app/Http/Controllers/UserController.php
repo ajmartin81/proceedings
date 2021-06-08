@@ -6,24 +6,30 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\UserService;
+use App\Services\Admin\ProceedingService;
 
 class UserController extends Controller
 {
     protected $userService;
+    protected $proceedingService;
 
     public function __construct()
     {
         $this->userService = new UserService;
+        $this->proceedingService = new ProceedingService;
     }
+    
     public function index()
     {
         $user = $this->userService->getUserById(Auth::id());
         //dd($user);
-        if($user->isClient()){
-            return view('dashboard');
-        }else{
+        if($user->isAdmin()){
             return redirect()->route('admin');
         }
+
+        $proceedings = $this->proceedingService->getUserProceedings($user->id);
+            
+        return view('proceedings', compact('proceedings'));
     }
 
     public function create()

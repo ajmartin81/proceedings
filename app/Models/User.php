@@ -67,9 +67,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Document')->withTimestamps();
     }
 
-    public function isClient()
+    public function isAdmin()
     {
-        if($this->hasRole('Cliente')){
+        if($this->hasRole('Abogado')){
             return true;
         }
 

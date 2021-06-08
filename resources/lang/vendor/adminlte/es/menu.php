@@ -18,4 +18,5 @@ return [
     'information'                   => 'Información',
     'users'                         => 'Usuarios',
     'proceedings'                   => 'Expedientes',
+    'my_proceedings'                => 'Mis expedientes',
 ];

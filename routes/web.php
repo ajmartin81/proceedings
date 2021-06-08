@@ -33,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('users', [AdminUserController::class, 'index'])->name('users');
         Route::get('user/new', [AdminUserController::class, 'create'])->name('user.create');
         Route::post('user/new', [AdminUserController::class, 'store'])->name('user.store');
+        Route::get('user/{userId}/edit', [AdminUserController::class, 'edit'])->name('user.edit');
+        Route::put('user/{userId}', [AdminUserController::class, 'update'])->name('user.update');
 
         Route::get('proceedings', [AdminProceedingController::class, 'index'])->name('proceedings');
         

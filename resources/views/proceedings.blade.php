@@ -42,17 +42,36 @@
 
 @section('js')
 
-    <script>
-        $('#expedientes').DataTable({
-            responsive: {
-                details: false
-            },
-            columnDefs: [
-                { responsivePriority: 1, targets: 0 },
-                { responsivePriority: 2, targets: -1 },
-                { orderable: false, targets: -1 }
-            ],
-            autoWidth: false
-        });
-    </script>
+<script>
+    $('#expedientes').DataTable({
+        responsive: {
+            details: false
+        },
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 },
+            { orderable: false, targets: -1 }
+        ],
+        autoWidth: false,
+        language: { 
+        processing: "Procesando...",
+        lengthMenu: "Mostrar _MENU_ ",
+        zeroRecords: "No se encontraron resultados",
+        emptyTable: "Ningún dato disponible en esta tabla",
+        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+        search: "_INPUT_",
+        searchPlaceholder: "Buscar...",
+        infoThousands: ",",
+        loadingRecords: "Cargando...",
+        paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+        },
+        info: "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
+    }
+    });
+</script>
 @stop

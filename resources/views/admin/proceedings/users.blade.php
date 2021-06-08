@@ -103,7 +103,7 @@
                 success: function(response){
                     Toast.fire({
                         icon: 'success',
-                        title: 'Añadido cliente al expediente'
+                        title: 'Añadido al expediente'
                     })
                 },
                 statusCode: {
