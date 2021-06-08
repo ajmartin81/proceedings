@@ -42,5 +42,15 @@ class ProceedingRepository {
 
         return $proceeding;
     }
+
+    public function setStatus($status, $proceedingId)
+    {
+        $proceeding = $this->getProceedingById($proceedingId);
+        $newStatus = ['status' => $status];
+
+        $proceeding->update($newStatus);
+
+        return $proceeding;
+    }
     
 }

@@ -62,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('{proceedingId}/event/new', [AdminEventController::class, 'create'])->name('event.create');
             Route::post('{proceedingId}/event/add', [AdminEventController::class, 'store'])->name('event.store');
+
+            Route::post('{proceedingId}/status', [AdminProceedingController::class, 'updateStatus'])->name('status.update');
         });
     });
 });

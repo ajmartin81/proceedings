@@ -36,4 +36,9 @@ class ProceedingService {
     {
         return $this->proceedingRepository->updateProceeding($data, $proceedingId);
     }
+
+    public function setStatus($status, $proceedingId)
+    {
+        return $this->proceedingRepository->setStatus($status, $proceedingId);
+    }
 }

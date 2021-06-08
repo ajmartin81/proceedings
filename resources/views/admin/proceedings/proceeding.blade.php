@@ -50,7 +50,7 @@
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-unlock-alt"></i>&nbsp;Estado</a>
+                                            <button type="button" class="btn btn-warning w-100 mb-2" data-toggle="modal" data-target="#cambiar_estado"><i class="fas fa-unlock-alt"></i>&nbsp;Estado</button>
                                         </div>
                                         <div class="col-md-4">
                                             <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-user-edit"></i>&nbsp;Usuarios</a>
@@ -166,6 +166,35 @@
                 </div>
             </div>
         </div>
+        <!-- Status Modal -->
+        <div class="modal fade" id="cambiar_estado" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Modificar estado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                
+                    <div class="modal-body justify-content-center">
+                        <select name="estado" id="estado" class="form-control">
+                            <option value="Abierto">Abierto</option>
+                            <option value="Presentado">Presentado</option>
+                            <option value="Pendiente de documentación">Pendiente de documentación</option>
+                            <option value="Pendiente de respuesta">Pendiente de respuesta</option>
+                            <option value="Reclamado">Reclamado</option>
+                            <option value="Cerrado">Cerrado</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="actualizar_estado()">Guardar</button>
+                    </div>
+                
+            </div>
+            </div>
+        </div>
     </div>
     
 
@@ -177,6 +206,7 @@
 @stop
 
 @section('js')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $('#documentos').DataTable({
         responsive: true,
@@ -205,5 +235,46 @@
             info: "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
         }
     });
+
+    const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+
+        function actualizar_estado() {
+            $("#cambiar_estado").modal("hide");
+            setInterval(function(){ 
+                $('.modal-backdrop').hide();
+                $("body").removeClass("modal-open");
+            }, 200);
+            
+            $.ajax({
+                url:"{{ route('status.update', ['proceedingId' => $proceeding->id]) }}",
+                type: "POST",
+                data:{
+                    status: $("#estado").val(),
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response){
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Estado actualizado'
+                    })
+                },
+                error: function(response){
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'No se actualizó el estado'
+                    })
+                }
+            })
+    }
 </script>
 @stop

@@ -122,4 +122,17 @@ class AdminProceedingController extends Controller
         return response('No se elimino del expediente', 221)
                 ->header('Content-Type', 'text/plain');
     }
+
+    public function updateStatus(Request $request, $proceedingId)
+    {
+        $status = $request->get('status');
+
+        $status = $this->proceedingService->setStatus($status, $proceedingId);
+        if($status){
+            return response('Expediente actualizado', 200)
+                  ->header('Content-Type', 'text/plain');
+        }
+        return response('No se actualizó el expediente', 222)
+                ->header('Content-Type', 'text/plain');
+    }
 }
