@@ -251,7 +251,7 @@ return [
         ],
         [
             'text'        => 'proceedings',
-            'route'         => 'proceedings',
+            'route'         => 'admin.proceedings',
             'icon'        => 'fas fa-fw fa-folder',
             'can'           => 'admin'
         ],

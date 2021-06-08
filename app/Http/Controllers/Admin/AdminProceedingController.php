@@ -59,6 +59,31 @@ class AdminProceedingController extends Controller
         return view('admin.proceedings.proceeding', compact('proceeding'));
     }
 
+    
+    public function edit($proceedingId)
+    {
+        $proceeding = $this->proceedingService->getProceedingById($proceedingId);
+
+        return view('admin.proceedings.edit', compact('proceeding'));
+    }
+
+    public function update(Request $request, $proceedingId)
+    {
+        $data['reference']      = $request->get('referencia');
+        $data['title']          = $request->get('titulo');
+        $data['site']           = $request->get('dependencias');
+        $data['description']    = $request->get('descripcion');
+
+        $proceeding = $this->proceedingService->updateProceeding($data, $proceedingId);
+
+        return view('admin.proceedings.proceeding', compact('proceeding'));
+    }
+
+    public function destroy(Proceeding $proceeding)
+    {
+        //
+    }
+
     public function listUsersForProceeding($proceedingId)
     {
         $proceeding = $this->proceedingService->getProceedingById($proceedingId);
@@ -96,19 +121,5 @@ class AdminProceedingController extends Controller
         
         return response('No se elimino del expediente', 221)
                 ->header('Content-Type', 'text/plain');
-    }
-    public function edit(Proceeding $proceeding)
-    {
-        //
-    }
-
-    public function update(Request $request, Proceeding $proceeding)
-    {
-        //
-    }
-
-    public function destroy(Proceeding $proceeding)
-    {
-        //
     }
 }

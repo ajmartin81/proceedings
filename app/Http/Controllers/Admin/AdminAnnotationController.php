@@ -36,7 +36,7 @@ class AdminAnnotationController extends Controller
     {
         $this->annotationService->createNewAnnotation($request, $proceedingId);
 
-        return redirect()->route('proceedings');
+        return redirect()->route('proceeding.show', ['proceedingId' => $proceedingId]);
     }
 
     public function show(Annotation $annotation)

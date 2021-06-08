@@ -31,6 +31,16 @@ class ProceedingRepository {
         
         $newProceeding->users()->sync($users);
         
+        return $newProceeding;
+    }
+
+    public function updateProceeding($data, $proceedingId)
+    {
+        $proceeding = $this->getProceedingById($proceedingId);
+
+        $proceeding->update($data);
+
+        return $proceeding;
     }
     
 }

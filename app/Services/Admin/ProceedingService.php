@@ -29,6 +29,11 @@ class ProceedingService {
 
     public function addProceeding($data, $users)
     {
-        $this->proceedingRepository->addProceeding($data, $users);
+        return $this->proceedingRepository->addProceeding($data, $users);
+    }
+
+    public function updateProceeding($data, $proceedingId)
+    {
+        return $this->proceedingRepository->updateProceeding($data, $proceedingId);
     }
 }

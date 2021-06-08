@@ -5,8 +5,11 @@
 @section('content_header')
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <h1>Expediente {{ $proceeding->reference }}</h1>
+        </div>
+        <div class="col-md-2">
+            <a href="{{ url()->previous() }}" class="btn btn-danger w-100" title="Volver sin guardar"><i class="fas fa-undo"></i>&nbsp;Volver</a>
         </div>
     </div>
     

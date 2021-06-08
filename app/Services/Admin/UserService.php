@@ -31,7 +31,7 @@ class UserService {
         $user = $this->userRepository->addUser($data, $rol);
 
         $token = Password::getRepository()->create($user);
-        $user->sendPasswordResetNotification($token);
+        //$user->sendPasswordResetNotification($token);
         
         return $user;
     }
