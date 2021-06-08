@@ -20,12 +20,19 @@ class DocumentRepository {
             $data['proceeding_id'] = $proceedingId;
             $data['user_id'] = Auth::id();
 
-            if (Storage::putFileAs('/public/'.$proceedingId.'/', $file, $url)){
+            if (Storage::putFileAs('public/'.$proceedingId.'/', $file, $url)){
                 $document = Document::updateOrCreate($data);
             }
         }else{
             $document = null;
         }
+        
+        return $document;
+    }
+
+    public function getDocument($documentId)
+    {
+        $document = Document::findOrFail($documentId);
         
         return $document;
     }

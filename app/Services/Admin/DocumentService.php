@@ -16,4 +16,9 @@ class DocumentService {
     {
         return $this->documentRepository->uploadDocument($request, $proceedingId);
     }
+
+    public function getDocument($documentId)
+    {
+        return $this->documentRepository->getDocument($documentId);
+    }
 }

@@ -59,6 +59,44 @@ class AdminProceedingController extends Controller
         return view('admin.proceedings.proceeding', compact('proceeding'));
     }
 
+    public function listUsersForProceeding($proceedingId)
+    {
+        $proceeding = $this->proceedingService->getProceedingById($proceedingId);
+        $users = $this->userService->getUsers();
+
+        return view('admin.proceedings.users', compact('proceeding','users'));
+    }
+
+    public function addUserToProceeding(Request $request, $proceedingId)
+    {
+        $proceeding = $this->proceedingService->getProceedingById($proceedingId);
+        $user = $this->userService->getUserById($request->get('user_id'));
+
+        if(!$proceeding->Users->contains($user)){
+            $proceeding->Users()->attach($user);
+            return response('Usuario añadido al expediente', 200)
+                  ->header('Content-Type', 'text/plain');
+        }
+        
+        return response('El usuario ya esta en el expediente', 221)
+                ->header('Content-Type', 'text/plain');
+        
+    }
+
+    public function deleteUserFromProceeding(Request $request, $proceedingId)
+    {
+        $proceeding = $this->proceedingService->getProceedingById($proceedingId);
+        $user = $this->userService->getUserById($request->get('user_id'));
+
+        if($proceeding->Users->contains($user)){
+            $proceeding->Users()->detach($user);
+            return response('Usuario borrado del expediente', 200)
+                  ->header('Content-Type', 'text/plain');
+        }
+        
+        return response('No se elimino del expediente', 221)
+                ->header('Content-Type', 'text/plain');
+    }
     public function edit(Proceeding $proceeding)
     {
         //

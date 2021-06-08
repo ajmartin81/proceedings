@@ -40,10 +40,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{userId}/proceeding/new', [AdminProceedingController::class, 'create'])->name('proceeding.create');
         Route::post('{userId}/proceeding/add', [AdminProceedingController::class, 'store'])->name('proceeding.store');
         Route::get('{proceedingId}/show', [AdminProceedingController::class, 'show'])->name('proceeding.show');
+        Route::get('{proceedingId}/users', [AdminProceedingController::class, 'listUsersForProceeding'])->name('proceeding.users.show');
+        Route::post('{proceedingId}/users', [AdminProceedingController::class, 'addUserToProceeding'])->name('proceeding.users.add');
+        Route::delete('{proceedingId}/users', [AdminProceedingController::class, 'deleteUserFromProceeding'])->name('proceeding.users.delete');
 
         Route::get('{proceedingId}/document/upload', [AdminDocumentController::class, 'create'])->name('document.create');
         Route::post('{proceedingId}/document/upload', [AdminDocumentController::class, 'store'])->name('document.store');
-        Route::get('{documentId}/show', [AdminDocumentController::class, 'show'])->name('document.show');
+        Route::get('document/{documentId}/download', [AdminDocumentController::class, 'show'])->name('document.show');
 
         Route::get('{proceedingId}/annotation/new', [AdminAnnotationController::class, 'create'])->name('annotation.create');
         Route::post('{proceedingId}/annotation/add', [AdminAnnotationController::class, 'store'])->name('annotation.store');
