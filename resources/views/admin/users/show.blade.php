@@ -36,7 +36,9 @@
                             <td>{{ $user->phone }}</td>
                             <td class="d-flex justify-content-end">
                                 @can('proceeding.add')
-                                    <a href="{{ route('proceeding.create', ['userId' => $user->id]) }}" class="btn btn-success mr-3" title="Crear nuevo expediente"><i class="fas fa-folder-plus"></i></a>
+                                    @if($user->hasRole('Cliente'))
+                                        <a href="{{ route('proceeding.create', ['userId' => $user->id]) }}" class="btn btn-success mr-3" title="Crear nuevo expediente"><i class="fas fa-folder-plus"></i></a>
+                                    @endif
                                 @endcan
                                 <a href="{{ route('user.proceedings', ['userId' => $user->id]) }}" class="btn btn-info mr-3" title="Ver expedientes"><i class="far fa-folder-open"></i></a>
                                 <a href="{{ route('user.edit', ['userId' => $user->id]) }}" type="button" class="btn btn-secondary" title="Editar cliente"><i class="fas fa-user-cog"></i></a>

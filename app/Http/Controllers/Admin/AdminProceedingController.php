@@ -49,7 +49,8 @@ class AdminProceedingController extends Controller
         $data['end_at']         = null;
 
         $this->proceedingService->addProceeding($data, $userId);
-        return redirect()->route('proceedings');
+        
+        return view('admin.proceedings.proceeding', compact('proceeding'));
     }
 
     public function show($proceedingId)

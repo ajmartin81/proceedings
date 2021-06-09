@@ -32,20 +32,23 @@
                                     </p>
                                     <p>
                                         @if($proceeding->users->count() > 1)
-                                            <span>Clientes: </span>
+                                            <strong>Clientes: </strong>
                                         @else
-                                            <span>Cliente: </span> 
+                                            <strong>Cliente: </strong> 
                                         @endif
                 
                                         @foreach($proceeding->users as $user)
-                                            @if(!$user->hasRole('Colaborador') && !$user->hasRole('Abogado'))
+                                            @if($user->hasRole('Cliente'))
                                                 {{ $user->name }} {{ $user->surname }}
-                                                @if($loop->count > 1 && !$loop->last)
+                                                @if($loop->count > 1 && !$loop->last && $user->hasRole('Cliente'))
                                                     ,
                                                 @endif
                                             @endif
                                         @endforeach
                                     </p>
+                                    @if($proceeding->site)
+                                        <p><strong>Dependencias:</strong> {{ $proceeding->site}} </p>
+                                    @endif
                                 </div>
                                 <div class="card-footer">
                                     <div class="row">
