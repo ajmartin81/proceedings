@@ -26,9 +26,17 @@ class UserRepository {
 
     public function addUser($data, $rol)   
     {
-        $newUser = User::updateOrCreate($data);
-        $newUser->roles()->Sync($rol);
-        return $newUser;
+        $isEmailRegistered = User::where('email', $data['email'])->first();
+        $isNifRegistred = User::where('nif', $data['nif'])->first();
+
+        if(!$isEmailRegistered && !$isNifRegistred){
+            $newUser = User::updateOrCreate($data);
+            $newUser->roles()->Sync($rol);
+
+            return $newUser;
+        }
+        
+        return null;
     }
 
     public function updateUser($userId, $data, $rol)   

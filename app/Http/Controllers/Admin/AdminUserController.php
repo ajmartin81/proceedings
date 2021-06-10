@@ -41,7 +41,11 @@ class AdminUserController extends Controller
 
         $user = $this->userService->addUser($data, $rol);
 
-        return redirect()->route('users');
+        if($user){
+            return redirect()->route('user.proceedings', ['userId' => $user->id]);
+        }
+        
+        return redirect()->back()->with('errors', 'El email o nif ya está registrado');
     }
 
     public function show(User $user)
@@ -69,7 +73,11 @@ class AdminUserController extends Controller
 
         $user = $this->userService->updateUser($userId, $data, $rol);
 
-        return redirect()->route('user.proceedings', ['userId' => $user->id]);
+        if($user){
+            return redirect()->route('user.proceedings', ['userId' => $user->id]);
+        }
+        
+        return redirect()->back()->with('error','No se pudo actualizar la información');
     }
 
     public function destroy(User $user)
