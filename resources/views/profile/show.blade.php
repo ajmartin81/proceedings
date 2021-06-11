@@ -1,10 +1,15 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('adminlte::page')
 
+@section('title', 'Perfil de usuario')
+
+@section('css')
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
+@section('content')
+@livewireStyles
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
@@ -42,4 +47,12 @@
             @endif
         </div>
     </div>
-</x-app-layout>
+
+    @stack('modals')
+
+    @livewireScripts
+@stop
+
+@section('js')
+    <script src="{{ mix('js/app.js') }}" defer></script>
+@stop

@@ -77,6 +77,9 @@
     "Manage Role": "Administrar rol",
     "Manage Team": "Administrar equipo",
     "Name": "Nombre",
+    "Surname": "Apellidos",
+    "Phone": "Teléfono",
+    "Address": "Dirección",
     "Nevermind": "Olvidar",
     "New Password": "Nueva contraseña",
     "Not Found": "No encontrado",
@@ -181,5 +184,12 @@
     "You may delete any of your existing tokens if they are no longer needed.": "Puede eliminar cualquiera de sus tokens existentes si ya no los necesita.",
     "You may not delete your personal team.": "No se puede borrar su equipo personal.",
     "You may not leave a team that you created.": "No se puede abandonar un equipo que usted creó.",
-    "Your email address is not verified.": "Su dirección de correo electrónico no está verificada."
+    "Your email address is not verified.": "Su dirección de correo electrónico no está verificada.",
+    "Manage and log out your active sessions on other browsers and devices.": "Gestionar y cerrar tus sesiones activas en otros navegadores y dispositivos.",
+    "If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.": "Si es necesario, puede cerrar sesión en otros navegadores y dispositivos. Algunas de la sesiones recientes son listadas aquí, esta lista puede no ser exhaustiva. Si cree que su cuenta ha sido comprometida debería modificar su contraseña.",
+    "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.": "Por favor introduzca su contraseña para confirmar que desea cerrar sesión en el resto de navegadores y dispositivos.",
+    "Cancel": "Cancelar",
+    "Log Out Other Browser Sessions": "Cerrar sesión en otros navegadores",
+    "Proceedings": "Mis expedientes",
+    "Admin": "Panel de control"
 }

@@ -2,8 +2,9 @@
 
 namespace App\Services\Admin;
 
+use App\Mail\ActivateUserMail;
 use App\Repository\Admin\UserRepository;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Mail;
 
 class UserService {
     protected $userRepository;
@@ -30,8 +31,9 @@ class UserService {
     {       
         $user = $this->userRepository->addUser($data, $rol);
 
-        //$token = Password::getRepository()->create($user);
-        //$user->sendPasswordResetNotification($token);
+        if($user){
+            Mail::to($user->email)->send(new ActivateUserMail($user));
+        }
         
         return $user;
     }

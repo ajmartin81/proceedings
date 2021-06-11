@@ -8,14 +8,12 @@
                     <a href="{{ route('dashboard') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight ml-3 relative">
+                        {{ __('Proceedings') }}
+                    </h2>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
-                </div>
+                
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -91,11 +89,14 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
-                            </div>
-
+                            @can('admin')
+                                <x-jet-dropdown-link href="{{ route('admin') }}">
+                                    {{ __('Admin') }}
+                                </x-jet-dropdown-link>
+                            @endcan
+                            <x-jet-dropdown-link href="{{ route('proceedings') }}">
+                                {{ __('Proceedings') }}
+                            </x-jet-dropdown-link>
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
