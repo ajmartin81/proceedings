@@ -24,6 +24,9 @@ use App\Http\Controllers\UserController;
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/', [UserController::class, 'index'])->name('dashboard');
 
+Route::get('user/{userId}/verify', [UserController::class, 'verifyUser'])->name('verify-user');
+Route::post('user/{userId}/verify', [UserController::class, 'updateVerifiedUser'])->name('update-user');
+
 Route::middleware(['auth'])->group(function () {
     //Route::get('/', [UserController::class, 'index'])->name('dashboard');
     Route::get('/proceedings', [ProceedingController::class, 'index'])->name('proceedings');

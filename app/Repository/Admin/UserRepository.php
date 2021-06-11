@@ -43,8 +43,22 @@ class UserRepository {
     {
         $user = $this->getUserById($userId);
         $user->update($data);
-        $user->roles()->Sync($rol);
+
+        if($rol){
+            $user->roles()->Sync($rol);
+        }
         
         return $user;
+    }
+
+    public function isUserActivated($userId)
+    {
+        $user = $this->getUserById($userId);
+
+        if($user->last_login || $user->rgpd_accept_at || $user->email_verified_at){
+            return true;
+        }
+        
+        return false;
     }
 }

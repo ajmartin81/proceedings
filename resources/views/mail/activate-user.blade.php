@@ -346,7 +346,7 @@ img {
     <table border="0" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
     <td>
-    <a href="{{config('app.url')."/".$user->id."/verify"}}" class="button button-primary" target="_blank" rel="noopener">Haga click aqui para completar el registro</a>
+    <a href="{{ route('verify-user', ['userId' => $user->id]) }}" class="button button-primary" target="_blank" rel="noopener">Haga click aqui para completar el registro</a>
     </td>
     </tr>
     </table>

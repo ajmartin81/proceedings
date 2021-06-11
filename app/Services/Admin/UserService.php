@@ -38,9 +38,16 @@ class UserService {
         return $user;
     }
 
-    public function updateUser($userId, $data, $rol)
+    public function updateUser($userId, $data, $rol = null)
     {       
         $user = $this->userRepository->updateUser($userId, $data, $rol);
+
+        return $user;
+    }
+
+    public function isUserActivated($userId)
+    {
+        $user = $this->userRepository->isUserActivated($userId);
 
         return $user;
     }

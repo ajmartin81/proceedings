@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\UserService;
 use App\Services\Admin\ProceedingService;
+use App\Http\Requests\ValidateUserRequest;
 
 class UserController extends Controller
 {
@@ -32,33 +31,32 @@ class UserController extends Controller
         return view('proceedings', compact('proceedings'));
     }
 
-    public function create()
+    public function verifyUser($userId)
     {
-        //
+        $isAlreadyActivated = $this->userService->isUserActivated($userId);
+        $currentUser = Auth::user();
+
+        if(!$isAlreadyActivated && !$currentUser){
+            return view('user.activation', compact('userId'));
+        }
+
+        return view('user.active');
     }
 
-    public function store(Request $request)
+    public function updateVerifiedUser(ValidateUserRequest $request, $userId)
     {
-        //
-    }
+        $password = $request->get('password');
 
-    public function show(User $user)
-    {
-        //
-    }
+        $data['password']      = bcrypt($password);
+        $data['rgpd_accept_at']       = now();
+        $data['email_verified_at']    = now();
 
-    public function edit(User $user)
-    {
-        //
-    }
+        $user = $this->userService->updateUser($userId, $data);
 
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    public function destroy(User $user)
-    {
-        //
+        if($user){
+            return redirect()->route('dashboard');
+        }
+        
+        return redirect()->back()->with('error','No se pudo completar el registro');
     }
 }
