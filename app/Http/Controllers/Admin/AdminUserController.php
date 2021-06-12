@@ -32,7 +32,7 @@ class AdminUserController extends Controller
     public function store(Request $request)
     {
         $data['email']      = $request->get('email');
-        $data['password']   = bcrypt('12345678');/*bcrypt(uniqid());*/
+        $data['password']   = bcrypt(uniqid());
         $data['name']       = $request->get('nombre');
         $data['surname']    = $request->get('apellidos');
         $data['address']    = $request->get('direccion');
@@ -46,7 +46,7 @@ class AdminUserController extends Controller
             return redirect()->route('user.proceedings', ['userId' => $user->id]);
         }
         
-        return redirect()->back()->with('errors', 'El email o nif ya está registrado');
+        return redirect()->back();
     }
 
     public function show(User $user)

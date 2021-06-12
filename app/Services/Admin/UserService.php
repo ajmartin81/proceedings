@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Mail\ActivateUserMail;
+use App\Mail\ErrorNotificationMail;
 use App\Repository\Admin\UserRepository;
 use Illuminate\Support\Facades\Mail;
 
@@ -32,10 +33,15 @@ class UserService {
         $user = $this->userRepository->addUser($data, $rol);
 
         if($user){
-            Mail::to($user->email)->send(new ActivateUserMail($user));
+            try{
+                Mail::to($user->email)->send(new ActivateUserMail($user));
+            } catch(\Exception $e) {
+                $adminMail = env('MAIL_FROM_ADDRESS');
+                Mail::to($adminMail)->send(new ErrorNotificationMail($user));
+            }
+            return $user;
         }
-        
-        return $user;
+        return null;
     }
 
     public function updateUser($userId, $data, $rol = null)

@@ -48,7 +48,7 @@ class AdminProceedingController extends Controller
         $data['begin_at']       = $request->get('fecha_inicio');
         $data['end_at']         = null;
 
-        $this->proceedingService->addProceeding($data, $userId);
+        $proceeding = $this->proceedingService->addProceeding($data, $userId);
         
         return view('admin.proceedings.proceeding', compact('proceeding'));
     }
