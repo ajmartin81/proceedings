@@ -22,14 +22,19 @@
             <form action="{{ route('event.store', ['proceedingId' => $proceeding->id]) }}" method="POST">
                 @csrf
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-8">
                         <div class="form-group">
                             <input type="text" class="form-control" name="titulo" placeholder="Título *" required>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
-                            <input type="date" class="form-control" name="fecha_inicio" placeholder="Fecha de inicio" required>
+                            <input type="datetime-local" class="form-control" name="fecha_inicio" placeholder="Fecha de inicio" required>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="datetime-local" class="form-control" name="fecha_fin" placeholder="Fecha de fin" required>
                         </div>
                     </div>
                 </div>

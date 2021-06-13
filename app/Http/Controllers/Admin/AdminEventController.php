@@ -8,6 +8,8 @@ use App\Models\Proceeding;
 use App\Services\Admin\EventService;
 use App\Services\Admin\ProceedingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AdminEventController extends Controller
 {
@@ -57,5 +59,15 @@ class AdminEventController extends Controller
     public function destroy(Event $event)
     {
         //
+    }
+
+    public function userNextEvents(Request $request)
+    {
+        
+            $userId = Auth::id();
+            $userNextEvents = $this->eventService->userEvents($request, $userId);
+            
+            return response()->json($userNextEvents);
+        
     }
 }

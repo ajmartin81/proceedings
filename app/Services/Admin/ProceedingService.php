@@ -27,6 +27,11 @@ class ProceedingService {
 
     }
 
+    public function getUserActiveProceedings($userId){
+        return $this->proceedingRepository->getUserActiveProceedings($userId);
+
+    }
+
     public function addProceeding($data, $users)
     {
         return $this->proceedingRepository->addProceeding($data, $users);

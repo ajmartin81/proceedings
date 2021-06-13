@@ -54,7 +54,7 @@ class UserController extends Controller
         $user = $this->userService->updateUser($userId, $data);
 
         if($user){
-            return redirect()->route('dashboard');
+            return redirect()->route('user.proceedings');
         }
         
         return redirect()->back()->with('error','No se pudo completar el registro');

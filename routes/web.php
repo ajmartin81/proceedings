@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{userId}/proceedings', [AdminProceedingController::class, 'userProceedings'])->name('user.proceedings');
             Route::get('{userId}/proceeding/new', [AdminProceedingController::class, 'create'])->name('proceeding.create');
             Route::post('{userId}/proceeding/add', [AdminProceedingController::class, 'store'])->name('proceeding.store');
+
+            Route::get('events', [AdminEventController::class, 'userNextEvents'])->name('user.events');
         });
         
         Route::group(['prefix' => 'proceeding'], function () {

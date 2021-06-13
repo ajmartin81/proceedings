@@ -18,4 +18,9 @@ class EventService {
     {
         return $this->eventRepository->createNewEvent($request, $proceedingId);
     }
+
+    public function userEvents(Request $request, $userId)
+    {
+        return $this->eventRepository->userEvents($request, $userId);
+    }
 }

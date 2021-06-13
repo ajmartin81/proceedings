@@ -4,6 +4,7 @@ namespace App\Repository\Admin;
 
 use App\Models\Proceeding;
 use App\Repository\Admin\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class ProceedingRepository {
 
@@ -25,11 +26,18 @@ class ProceedingRepository {
         return $user->getUserById($userId)->proceedings;
     }
 
+    public function getUserActiveProceedings($userId)
+    {
+        $user = new UserRepository;
+        return $user->getUserById($userId)->proceedings->where('status','!=','Cerrado');
+    }
+
     public function addProceeding($data, $users)
     {
         $newProceeding = Proceeding::updateOrCreate($data);
         
         $newProceeding->users()->sync($users);
+        $newProceeding->users()->attach(Auth::user());
         
         return $newProceeding;
     }

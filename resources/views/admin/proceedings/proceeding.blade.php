@@ -56,10 +56,14 @@
                                             <button type="button" class="btn btn-warning w-100 mb-2" data-toggle="modal" data-target="#cambiar_estado"><i class="fas fa-unlock-alt"></i>&nbsp;Estado</button>
                                         </div>
                                         <div class="col-md-4">
-                                            <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-user-edit"></i>&nbsp;Usuarios</a>
+                                            @if($proceeding->status != 'Cerrado')
+                                                <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-user-edit"></i>&nbsp;Usuarios</a>
+                                            @endif
                                         </div>
                                         <div class="col-md-4">
-                                            <a href="{{ route('proceeding.edit', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-edit"></i>&nbsp;Modificar</a>
+                                            @if($proceeding->status != 'Cerrado')
+                                                <a href="{{ route('proceeding.edit', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-edit"></i>&nbsp;Modificar</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -88,8 +92,10 @@
                                     <div class="row">
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4">
-                                            <a href="{{ route('annotation.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-info w-100" title="Añadir anotación"><i class="fas fa-file-alt"></i>&nbsp;Añadir nota</a>
-                                        </div>
+                                            @if($proceeding->status != 'Cerrado')
+                                                <a href="{{ route('annotation.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-info w-100" title="Añadir anotación"><i class="fas fa-file-alt"></i>&nbsp;Añadir nota</a>
+                                            @endif
+                                            </div>
                                         <div class="col-md-4"></div>
                                     </div>
                                 </div>
@@ -108,8 +114,11 @@
                                 <div class="card-body">
                                     @foreach($proceeding->events as $event)
                                         <p>
-                                            <strong>{{ substr($event->event_date,0,10) }} | {{ $event->title }} :</strong>
-                                            {{ $event->description}}
+                                            <strong>{{ $event->start }} / {{ $event->end }} | {{ $event->title }}</strong>
+                                            @if($event->description)
+                                            <br>
+                                                {{ $event->description }}
+                                            @endif
                                         </p>
                                     @endforeach
                                 </div>
@@ -117,7 +126,9 @@
                                     <div class="row">
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4">
-                                            <a href="{{ route('event.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-secondary w-100" title="Añadir evento"><i class="fas fa-calendar-plus"></i>&nbsp;Añadir evento</a>
+                                            @if($proceeding->status != 'Cerrado')
+                                                <a href="{{ route('event.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-secondary w-100" title="Añadir evento"><i class="fas fa-calendar-plus"></i>&nbsp;Añadir evento</a>
+                                            @endif
                                         </div>
                                         <div class="col-md-4"></div>
                                     </div>
@@ -158,7 +169,9 @@
                                     <div class="row">
                                         <div class="col-lg-3"></div>
                                         <div class="col-lg-6">
-                                            <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-success w-100" title="Subir documentación"><i class="fas fa-file-upload"></i>&nbsp;Subir documentación</a>
+                                            @if($proceeding->status != 'Cerrado')
+                                                <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-success w-100" title="Subir documentación"><i class="fas fa-file-upload"></i>&nbsp;Subir documentación</a>
+                                            @endif
                                         </div>
                                         <div class="col-lg-3"></div>
                                     </div>

@@ -7,6 +7,7 @@ use App\Models\Proceeding;
 use App\Services\Admin\ProceedingService;
 use App\Services\Admin\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminProceedingController extends Controller
 {
