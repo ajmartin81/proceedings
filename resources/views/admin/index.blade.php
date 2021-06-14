@@ -8,7 +8,7 @@
     <div class="col-md-3">
         <div class="small-box bg-gradient-warning text-white">
             <div class="inner">
-              <h3>150</h3>
+              <h3>{{ $newProceedginsSinceLastLogin }}</h3>
               <p>Nuevos expedientes</p>
             </div>
             <div class="icon">
@@ -22,7 +22,7 @@
     <div class="col-md-3">
         <div class="small-box bg-gradient-primary">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{ $newUsersSinceLastLogin }}</h3>
               <p>Nuevos usuarios</p>
             </div>
             <div class="icon">
@@ -36,7 +36,7 @@
     <div class="col-md-3">
         <div class="small-box bg-gradient-success">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{ $newDocumentsSinceLastLogin }}</h3>
               <p>Nuevos documentos</p>
             </div>
             <div class="icon">
@@ -50,7 +50,7 @@
     <div class="col-md-3">
         <div class="small-box bg-gradient-secondary">
             <div class="inner">
-              <h3>12</h3>
+              <h3>{{ $newEventsSinceLastLogin }}</h3>
               <p>Nuevos eventos</p>
             </div>
             <div class="icon">

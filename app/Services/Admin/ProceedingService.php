@@ -32,6 +32,11 @@ class ProceedingService {
 
     }
 
+    public function getNewProceedginsSinceLastLogin($userId)
+    {
+        return $this->proceedingRepository->getNewProceedginsSinceLastLogin($userId);
+    }
+
     public function addProceeding($data, $users)
     {
         return $this->proceedingRepository->addProceeding($data, $users);

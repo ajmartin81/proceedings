@@ -23,4 +23,9 @@ class EventService {
     {
         return $this->eventRepository->userEvents($request, $userId);
     }
+
+    public function getEventeSinceLastLogin($userId)
+    {
+        return $this->eventRepository->getEventeSinceLastLogin($userId);
+    }
 }

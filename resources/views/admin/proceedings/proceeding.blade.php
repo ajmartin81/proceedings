@@ -49,22 +49,27 @@
                                     @if($proceeding->site)
                                         <p><strong>Dependencias:</strong> {{ $proceeding->site}} </p>
                                     @endif
+                                    <p><strong>Estado:</strong><span id="estado_actual"> {{ $proceeding->status}} </span></p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <button type="button" class="btn btn-warning w-100 mb-2" data-toggle="modal" data-target="#cambiar_estado"><i class="fas fa-unlock-alt"></i>&nbsp;Estado</button>
+                                            @can('status.edit')
+                                                <button type="button" class="btn btn-warning w-100 mb-2" data-toggle="modal" data-target="#cambiar_estado"><i class="fas fa-unlock-alt"></i>&nbsp;Estado</button>
+                                            @endcan
                                         </div>
-                                        <div class="col-md-4">
-                                            @if($proceeding->status != 'Cerrado')
-                                                <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-user-edit"></i>&nbsp;Usuarios</a>
-                                            @endif
-                                        </div>
-                                        <div class="col-md-4">
-                                            @if($proceeding->status != 'Cerrado')
-                                                <a href="{{ route('proceeding.edit', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-edit"></i>&nbsp;Modificar</a>
-                                            @endif
-                                        </div>
+                                        @can('admin')
+                                            <div class="col-md-4">
+                                                @if($proceeding->status != 'Cerrado')
+                                                    <a href="{{ route('proceeding.users.show', ['proceedingId' => $proceeding->id]) }}" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-user-edit"></i>&nbsp;Usuarios</a>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-4">
+                                                @if($proceeding->status != 'Cerrado')
+                                                    <a href="{{ route('proceeding.edit', ['proceedingId' => $proceeding->id]) }}" class="btn btn-warning w-100 mb-2" title="Editar clientes"><i class="fas fa-edit"></i>&nbsp;Modificar</a>
+                                                @endif
+                                            </div>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +98,7 @@
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4">
                                             @if($proceeding->status != 'Cerrado')
-                                                <a href="{{ route('annotation.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-info w-100" title="Añadir anotación"><i class="fas fa-file-alt"></i>&nbsp;Añadir nota</a>
+                                                <a href="{{ route('annotation.create', ['proceedingId' => $proceeding->id]) }}" class="btn btn-info w-100" title="Añadir anotación"><i class="fas fa-file-alt"></i>&nbsp;Añadir nota</a>
                                             @endif
                                             </div>
                                         <div class="col-md-4"></div>
@@ -126,9 +131,11 @@
                                     <div class="row">
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4">
-                                            @if($proceeding->status != 'Cerrado')
-                                                <a href="{{ route('event.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-secondary w-100" title="Añadir evento"><i class="fas fa-calendar-plus"></i>&nbsp;Añadir evento</a>
-                                            @endif
+                                            @can('event.add')
+                                                @if($proceeding->status != 'Cerrado')
+                                                    <a href="{{ route('event.create', ['proceedingId' => $proceeding->id]) }}" class="btn btn-secondary w-100" title="Añadir evento"><i class="fas fa-calendar-plus"></i>&nbsp;Añadir evento</a>
+                                                @endif
+                                            @endcan
                                         </div>
                                         <div class="col-md-4"></div>
                                     </div>
@@ -158,7 +165,7 @@
                                                 <tr>
                                                     <td>{{ $document->title }}</td>
                                                     <td class="d-flex justify-content-end">
-                                                        <a href="{{ route('document.show', ['documentId' => $document->id]) }}" type="button" class="btn btn-success mr-2" title="Descargar documentación"><i class="fas fa-file-download"></i></a>
+                                                        <a href="{{ route('document.show', ['documentId' => $document->id]) }}" class="btn btn-success mr-2" title="Descargar documentación"><i class="fas fa-file-download"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -170,7 +177,7 @@
                                         <div class="col-lg-3"></div>
                                         <div class="col-lg-6">
                                             @if($proceeding->status != 'Cerrado')
-                                                <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-success w-100" title="Subir documentación"><i class="fas fa-file-upload"></i>&nbsp;Subir documentación</a>
+                                                <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" class="btn btn-success w-100" title="Subir documentación"><i class="fas fa-file-upload"></i>&nbsp;Subir documentación</a>
                                             @endif
                                         </div>
                                         <div class="col-lg-3"></div>
@@ -263,7 +270,7 @@
             toast.addEventListener('mouseleave', Swal.resumeTimer)
           }
         })
-
+    @can('status.edit')
         function actualizar_estado() {
             $("#cambiar_estado").modal("hide");
             setInterval(function(){ 
@@ -279,10 +286,13 @@
                     _token: "{{ csrf_token() }}",
                 },
                 success: function(response){
+                    $("#estado_actual").text($("#estado").val());
+
                     Toast.fire({
                         icon: 'success',
                         title: 'Estado actualizado'
                     })
+                    
                 },
                 error: function(response){
                     Toast.fire({
@@ -291,6 +301,7 @@
                     })
                 }
             })
-    }
+        }
+    @endcan
 </script>
 @stop

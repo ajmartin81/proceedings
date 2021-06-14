@@ -19,6 +19,11 @@ class UserService {
         return $this->userRepository->getUsers();
     }
 
+    public function getNewUsersSinceLastLogin($userId)
+    {
+        return $this->userRepository->getNewUsersSinceLastLogin($userId);
+    }
+
     public function getUserById($userId){
         return $this->userRepository->getUserById($userId);
     }
@@ -56,5 +61,10 @@ class UserService {
         $user = $this->userRepository->isUserActivated($userId);
 
         return $user;
+    }
+
+    public function updateLastLoginDate($userId)
+    {
+        return $this->userRepository->updateLastLoginDate($userId);
     }
 }

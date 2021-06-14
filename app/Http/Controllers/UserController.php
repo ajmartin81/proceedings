@@ -26,9 +26,7 @@ class UserController extends Controller
             return redirect()->route('admin');
         }
 
-        $proceedings = $this->proceedingService->getUserProceedings($user->id);
-            
-        return view('proceedings', compact('proceedings'));
+        return redirect()->route('proceedings');
     }
 
     public function verifyUser($userId)

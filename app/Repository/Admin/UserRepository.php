@@ -2,7 +2,9 @@
 
 namespace App\Repository\Admin;
 
+use App\Models\Document;
 use App\Models\User;
+use App\Models\Proceeding;
 use Spatie\Permission\Models\Role;
 
 class UserRepository {
@@ -11,6 +13,16 @@ class UserRepository {
     {
         $users = User::all();
         return $users;
+    }
+
+    public function getNewUsersSinceLastLogin($userId)
+    {
+        $user = User::where('id', $userId)->first();
+        $dateFrom = $user->last_login?$user->last_login:"2000-01-01";
+
+        $newUsers = User::where('created_at','>=',$dateFrom)->get()->count();
+
+        return $newUsers;
     }
 
     public function getUserById($userId)
@@ -60,5 +72,14 @@ class UserRepository {
         }
         
         return false;
+    }
+
+    public function updateLastLoginDate($userId)
+    {
+        $user = $this->getUserById($userId);
+
+        $user->last_login = now();
+        $user->save();
+        return $user;
     }
 }

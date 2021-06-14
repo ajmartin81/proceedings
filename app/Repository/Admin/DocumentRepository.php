@@ -37,4 +37,15 @@ class DocumentRepository {
         return $document;
     }
     
+    public function getDocumentsSinceLastLogin($userId)
+    {
+        $userRepository = new UserRepository;
+        $user = $userRepository->getUserById($userId);
+
+        $dateFrom = $user->last_login?$user->last_login:"2000-01-01";
+
+        $documentsSinceLastLoginCount = Document::whereDate('created_at','>=',$dateFrom)->get()->count();
+
+        return $documentsSinceLastLoginCount;
+    }
 }

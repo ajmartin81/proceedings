@@ -21,4 +21,9 @@ class DocumentService {
     {
         return $this->documentRepository->getDocument($documentId);
     }
+
+    public function getDocumentsSinceLastLogin($userId)
+    {
+        return $this->documentRepository->getDocumentsSinceLastLogin($userId);
+    }
 }

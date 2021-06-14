@@ -32,6 +32,17 @@ class ProceedingRepository {
         return $user->getUserById($userId)->proceedings->where('status','!=','Cerrado');
     }
 
+    public function getNewProceedginsSinceLastLogin($userId)
+    {
+        $userRepository = new UserRepository;
+        $user = $userRepository->getUserById($userId);
+        
+        $dateFrom = $user->last_login?$user->last_login:"2000-01-01";
+
+        $newProceedings = Proceeding::where('created_at','>=',$dateFrom)->get()->count();
+        return $newProceedings;
+    }
+
     public function addProceeding($data, $users)
     {
         $newProceeding = Proceeding::updateOrCreate($data);

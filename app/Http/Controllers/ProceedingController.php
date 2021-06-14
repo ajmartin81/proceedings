@@ -3,43 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proceeding;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Services\Admin\ProceedingService;
+use App\Services\Admin\UserService;
 
 class ProceedingController extends Controller
 {
+    protected $proceedingService;
+    protected $userService;
+
+    public function __construct()
+    {
+        $this->proceedingService = new ProceedingService;
+        $this->userService = new UserService;
+    }
+
     public function index()
     {
-        return 'Expedientes de usuario';
+        $user = $this->userService->getUserById(Auth::id());
+        
+        $proceedings = $this->proceedingService->getUserProceedings($user->id);
+            
+        return view('proceedings.show', compact('proceedings'));
     }
-    /*
-    public function create()
-    {
-        //
-    }
+    
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show(Proceeding $proceeding)
-    {
-        //
-    }
-
-    public function edit(Proceeding $proceeding)
-    {
-        //
-    }
-
-    public function update(Request $request, Proceeding $proceeding)
-    {
-        //
-    }
-
-    public function destroy(Proceeding $proceeding)
-    {
-        //
-    }
-    */
+   
 }

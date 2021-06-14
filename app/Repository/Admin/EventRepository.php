@@ -45,4 +45,16 @@ class EventRepository {
                   
         return $events;
     }
+
+    public function getEventeSinceLastLogin($userId)
+    {
+        $userRepository = new UserRepository;
+        $user = $userRepository->getUserById($userId);
+
+        $dateFrom = $user->last_login?$user->last_login:"2000-01-01";
+
+        $eventsSinceLastLoginCount = Event::whereDate('created_at','>=',$dateFrom)->get()->count();
+
+        return $eventsSinceLastLoginCount;
+    }
 }
