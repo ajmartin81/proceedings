@@ -119,7 +119,7 @@
                                 <div class="card-body">
                                     @foreach($proceeding->events as $event)
                                         <p>
-                                            <strong>{{ $event->start }} / {{ $event->end }} | {{ $event->title }}</strong>
+                                            <strong>{{ $event->start }} | {{ $event->title }}</strong>
                                             @if($event->description)
                                             <br>
                                                 {{ $event->description }}

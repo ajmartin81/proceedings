@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'proceeding'], function () {
         Route::get('/', [AdminProceedingController::class, 'index'])->name('admin.proceedings');
     
-        Route::middleware(['middleware' => ['can:admin']])->group(function () {
+        Route::group(['middleware' => ['can:admin']], function () {
             Route::get('{proceedingId}/edit', [AdminProceedingController::class, 'edit'])->name('proceeding.edit');
             Route::put('{proceedingId}', [AdminProceedingController::class, 'update'])->name('proceeding.update');
             Route::get('{proceedingId}/users', [AdminProceedingController::class, 'listUsersForProceeding'])->name('proceeding.users.show');
