@@ -161,9 +161,16 @@
             expandRows:true,
             fixedWeekCount:false,
             eventClick: function(info) {
-              
+              let start = info.event.start;
+              var startTime =
+                ("0" + start.getHours()).slice(-2) + ":" +
+                ("0" + start.getMinutes()).slice(-2);
+              let end = info.event.end;
+              var endTime =
+                ("0" + end.getHours()).slice(-2) + ":" +
+                ("0" + end.getMinutes()).slice(-2);
               swal.fire(
-                info.event.title
+                startTime+" - "+endTime+" | "+info.event.title
               )
             }
           });

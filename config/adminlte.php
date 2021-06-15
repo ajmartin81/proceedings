@@ -245,7 +245,7 @@ return [
         ],
         [
             'text'        => 'users',
-            'route'         => 'users',
+            'route'         => 'admin.users',
             'icon'        => 'fas fa-fw fa-users',
             'can'           => 'user.add',
         ],

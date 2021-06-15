@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/proceedings', [ProceedingController::class, 'index'])->name('proceedings');
     
     Route::group(['prefix' => 'proceeding'], function () {
-        Route::get('/', [AdminProceedingController::class, 'index'])->name('admin.proceedings');
+        
     
         Route::group(['middleware' => ['can:admin']], function () {
             Route::get('{proceedingId}/edit', [AdminProceedingController::class, 'edit'])->name('proceeding.edit');
@@ -59,7 +59,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'admin', 'middleware' => ['can:admin']], function () {
         Route::get('/', [AdminHomeController::class, 'index'])->name('admin');
-        Route::get('users', [AdminUserController::class, 'index'])->name('users');
+        Route::get('users', [AdminUserController::class, 'index'])->name('admin.users');
+        Route::get('/proceedings', [AdminProceedingController::class, 'index'])->name('admin.proceedings');
 
         Route::group(['prefix' => 'user'], function () {
             Route::get('add', [AdminUserController::class, 'create'])->name('user.create');
@@ -67,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{userId}/edit', [AdminUserController::class, 'edit'])->name('user.edit');
             Route::put('{userId}', [AdminUserController::class, 'update'])->name('user.update');
 
+            
             Route::get('{userId}/proceedings', [AdminProceedingController::class, 'userProceedings'])->name('user.proceedings');
             Route::get('{userId}/proceeding/add', [AdminProceedingController::class, 'create'])->name('proceeding.create');
             Route::post('{userId}/proceeding/add', [AdminProceedingController::class, 'store'])->name('proceeding.store');

@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="nif" placeholder="DNI/CIF/NIE/Pasaporte">
+                            <input type="text" class="form-control" name="nif" placeholder="DNI/CIF/NIE/Pasaporte" required>
                         </div>
                     </div>
                     <div class="col-md-4">
