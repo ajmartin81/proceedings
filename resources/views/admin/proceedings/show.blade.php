@@ -29,20 +29,18 @@
                             <td>{{ $proceeding->reference }}</td>
                             <td>{{ $proceeding->title }}</td>
                             <td>
-                                <p>
-                                    @foreach($proceeding->users as $user)
-                                    {{ $user->name }} {{ $user->surname }}
-                                            @if($loop->count > 1 && !$loop->last)
-                                                <br>
-                                            @endif
-                                    @endforeach
-                                </p>
+                                @foreach($proceeding->users as $user)
+                                {{ $user->name }} {{ $user->surname }}
+                                        @if($loop->count > 1 && !$loop->last)
+                                            <br>
+                                        @endif
+                                @endforeach
                             </td>
                             <td class="d-flex justify-content-end">
-                                <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-success mr-2" title="Subir documentación"><i class="fas fa-file-upload"></i></a>
-                                <a href="{{ route('annotation.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-secondary mr-2" title="Añadir anotación"><i class="fas fa-file-alt"></i></a>
-                                <a href="{{ route('event.create', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-secondary mr-2" title="Añadir evento"><i class="fas fa-calendar-plus"></i></a>
-                                <a href="{{ route('proceeding.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-info" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
+                                <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" class="btn btn-success btn-sm mr-2" title="Subir documentación"><i class="fas fa-file-upload"></i></a>
+                                <a href="{{ route('annotation.create', ['proceedingId' => $proceeding->id]) }}" class="btn btn-secondary btn-sm mr-2" title="Añadir anotación"><i class="fas fa-file-alt"></i></a>
+                                <a href="{{ route('event.create', ['proceedingId' => $proceeding->id]) }}" class="btn btn-secondary btn-sm mr-2" title="Añadir evento"><i class="fas fa-calendar-plus"></i></a>
+                                <a href="{{ route('proceeding.show', ['proceedingId' => $proceeding->id]) }}" class="btn btn-info btn-sm" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
                             </td>
                         </tr>
                     @endforeach

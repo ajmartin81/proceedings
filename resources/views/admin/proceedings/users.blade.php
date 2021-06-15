@@ -36,8 +36,8 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td class="d-flex justify-content-end">
-                                <a href="#" class="btn btn-info mr-3" onclick="adduser({{$user->id}})" title="Añadir usuario al expediente"><i class="fas fa-user-plus"></i></a>
-                                <a href="#" class="btn btn-danger mr-3" onclick="deleteuser({{$user->id}})" title="Borrar usuario del expediente"><i class="fas fa-user-minus"></i></a>
+                                <a href="#" class="text-success mr-3" onclick="adduser({{$user->id}})" title="Añadir usuario al expediente"><i class="fas fa-user-plus"></i></a>
+                                <a href="#" class="text-danger mr-3" onclick="deleteuser({{$user->id}})" title="Borrar usuario del expediente"><i class="fas fa-user-minus"></i></a>
                             </td>
                         </tr>
                     @endforeach

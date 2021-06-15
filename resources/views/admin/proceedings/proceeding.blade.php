@@ -165,7 +165,7 @@
                                                 <tr>
                                                     <td>{{ $document->title }}</td>
                                                     <td class="d-flex justify-content-end">
-                                                        <a href="{{ route('document.show', ['documentId' => $document->id]) }}" class="btn btn-success mr-2" title="Descargar documentación"><i class="fas fa-file-download"></i></a>
+                                                        <a href="{{ route('document.show', ['documentId' => $document->id]) }}" class="text-success" title="Descargar documentación"><i class="fas fa-file-download"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -94,7 +94,7 @@
                             <td>{{ $proceeding->title }}</td>
                             <td>{{ substr($proceeding->begin_at,0,10) }}</td>
                             <td class="d-flex justify-content-end">
-                                <a href="{{ route('proceeding.show', ['proceedingId' => $proceeding->id]) }}" type="button" class="btn btn-info btn-sm" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
+                                <a href="{{ route('proceeding.show', ['proceedingId' => $proceeding->id]) }}" class="text-info" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -132,6 +132,7 @@
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/locales/es.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             $.ajaxSetup({
@@ -159,6 +160,12 @@
             contentHeight:"auto",
             expandRows:true,
             fixedWeekCount:false,
+            eventClick: function(info) {
+              
+              swal.fire(
+                info.event.title
+              )
+            }
           });
           
           calendar.render();
