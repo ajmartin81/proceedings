@@ -20,15 +20,10 @@ class AdminEventController extends Controller
         $this->eventService = new EventService;
     }
 
-    public function index()
-    {
-        //
-    }
-
     public function create($proceedingId)
     {
         $proceedingService = new ProceedingService;
-        $proceeding = new Proceeding;
+        
         $proceeding = $proceedingService->getProceedingById($proceedingId);
         
         return view('admin.events.new', compact('proceeding'));
@@ -41,24 +36,30 @@ class AdminEventController extends Controller
         return redirect()->route('proceeding.show', ['proceedingId' => $proceedingId]);
     }
 
-    public function show(Event $event)
+    public function edit($eventId)
     {
-        //
+        $event = $this->eventService->getEvent($eventId);
+
+        return view('admin.events.edit', compact('event'));
     }
 
-    public function edit(Event $event)
+    public function update(Request $request, $eventId)
     {
-        //
+        $data['title']      = $request->get('titulo');
+        $data['start']      = $request->get('fecha_inicio');
+        $data['end']        = $request->get('fecha_fin');
+        $data['description']= $request->get('descripcion');
+
+        $event = $this->eventService->updateEvent($data, $eventId);
+        
+        return redirect()->route('proceeding.show', ['proceedingId' => $event->proceeding_id]);
     }
 
-    public function update(Request $request, Event $event)
+    public function destroy($eventId)
     {
-        //
-    }
+        $event = $this->eventService->deleteEvent($eventId);
 
-    public function destroy(Event $event)
-    {
-        //
+        return response('Evento eliminado',200)->header('Content-Type', 'text/plain');;
     }
 
     public function userNextEvents(Request $request)

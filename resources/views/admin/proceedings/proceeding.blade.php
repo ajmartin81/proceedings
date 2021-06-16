@@ -118,13 +118,25 @@
                                 </div>
                                 <div class="card-body">
                                     @foreach($proceeding->events as $event)
-                                        <p>
-                                            <strong>{{ $event->start }} | {{ $event->title }}</strong>
-                                            @if($event->description)
-                                            <br>
-                                                {{ $event->description }}
-                                            @endif
-                                        </p>
+                                        <div class="row" id="event{{ $event->id }}">
+                                            <div class="col-10">
+                                                <strong>{{ $event->start }} | {{ $event->title }}</strong>
+                                                @if($event->description)
+                                                <br>
+                                                    {{ $event->description }}
+                                                @endif
+                                            </div>
+                                            <div class="col-1">
+                                                @if(Auth::id() == $event->user_id || auth()->user()->can('event.edit'))
+                                                    <a href="{{ route('event.edit', ['eventId' => $event->id]) }}" class="text-secondary" title="Modificar evento"><i class="fas fa-calendar-check"></i></a>
+                                                @endif
+                                            </div>
+                                            <div class="col-1">
+                                                @if(Auth::id() == $event->user_id || auth()->user()->can('event.delete'))
+                                                    <a href="{{ route('event.delete', ['eventId' => $event->id]) }}" class="text-danger delete-confirm" data-id="event{{ $event->id }}" title="Eliminar evento"><i class="fas fa-trash-alt"></i></a>
+                                                @endif
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                                 <div class="card-footer">
@@ -270,6 +282,7 @@
             toast.addEventListener('mouseleave', Swal.resumeTimer)
           }
         })
+
     @can('status.edit')
         function actualizar_estado() {
             $("#cambiar_estado").modal("hide");
@@ -303,5 +316,46 @@
             })
         }
     @endcan
+
+    $('.delete-confirm').on('click', function (event) {
+        event.preventDefault();
+        const event_url = $(this).attr('href');
+        const current_event = '#' + $(this).attr('data-id');
+        Swal.fire({
+            title: '¿Deseas continuar?',
+            text: 'El evento se borrará de forma permanente',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                url: event_url,
+                type: "DELETE",
+                data:{
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response){
+                    $(current_event).remove();
+                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Se eliminó el evento'
+                    })
+                    
+                },
+                error: function(response){
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'No se eliminó el evento'
+                    })
+                }
+            })
+            }
+        });
+    });
 </script>
 @stop

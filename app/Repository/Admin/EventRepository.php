@@ -11,6 +11,12 @@ use App\Repository\Admin\UserRepository;
 
 class EventRepository {
 
+    public function getEvent($eventId)
+    {
+        $event = Event::findOrFail($eventId);
+        return $event;
+    }
+
     public function getProceedingEventsById($proceedingId)
     {
         $events = Event::where('proceeding_id', $proceedingId)->get();
@@ -28,6 +34,24 @@ class EventRepository {
 
         $event = Event::updateOrCreate($data);
 
+        return $event;
+    }
+
+    public function updateEvent($data, $eventId)
+    {
+        $event = $this->getEvent($eventId);
+
+        $event->update($data);
+
+        return $event;
+    }
+
+    public function deleteEvent($eventId)
+    {
+        $event = $this->getEvent($eventId);
+
+        $event->delete();
+        
         return $event;
     }
 

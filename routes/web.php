@@ -53,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('{proceedingId}/event/add', [AdminEventController::class, 'create'])->middleware('can:event.add')->name('event.create');
         Route::post('{proceedingId}/event/add', [AdminEventController::class, 'store'])->middleware('can:event.add')->name('event.store');
+        Route::get('event/{eventId}/edit', [AdminEventController::class, 'edit'])->middleware('can:event.edit')->name('event.edit');
+        Route::put('event/{eventId}/update', [AdminEventController::class, 'update'])->middleware('can:event.edit')->name('event.update');
+        Route::delete('event/{eventId}/delete', [AdminEventController::class, 'destroy'])->middleware('can:event.edit')->name('event.delete');
 
         Route::post('{proceedingId}/status', [AdminProceedingController::class, 'updateStatus'])->middleware('can:status.edit')->name('status.update');
     });
