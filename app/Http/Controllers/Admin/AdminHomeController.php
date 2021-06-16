@@ -8,26 +8,44 @@ use App\Services\Admin\EventService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\ProceedingService;
 use App\Services\Admin\UserService;
+use Illuminate\Http\Request;
 
 class AdminHomeController extends Controller
 {
     public function index(){
         $userId = Auth::id();
 
+        $userService = new UserService;
         $proceedingService = new ProceedingService;
         $userProceedings = $proceedingService->getUserActiveProceedings($userId);
 
-        $newProceedginsSinceLastLogin = $proceedingService->getNewProceedginsSinceLastLogin($userId);
+        if(!session()->exists('newProceedginsSinceLastLogin')){
+            $ProceedginsSinceLastLogin = $proceedingService->getNewProceedginsSinceLastLogin($userId);
+            session(['newProceedginsSinceLastLogin' => $ProceedginsSinceLastLogin]);
+        }
+        
+        if(!session()->exists('newUsersSinceLastLogin')){
+            $UsersSinceLastLogin = $userService->getNewUsersSinceLastLogin($userId);
+            session(['newUsersSinceLastLogin' => $UsersSinceLastLogin]);
+        }
 
-        $userService = new UserService;
-        $newUsersSinceLastLogin = $userService->getNewUsersSinceLastLogin($userId);
+        if(!session()->exists('newDocumentsSinceLastLogin')){
+            $documentService = new DocumentService;
+            $DocumentsSinceLastLogin = $documentService->getDocumentsSinceLastLogin($userId);
+            session(['newDocumentsSinceLastLogin' => $DocumentsSinceLastLogin]);
+        }
 
-        $documentService = new DocumentService;
-        $newDocumentsSinceLastLogin = $documentService->getDocumentsSinceLastLogin($userId);
+        if(!session()->exists('newEventsSinceLastLogin')){
+            $eventService = new EventService;
+            $EventsSinceLastLogin = $eventService->getEventeSinceLastLogin($userId);
+            session(['newEventsSinceLastLogin' => $EventsSinceLastLogin]);
+        }
 
-        $eventService = new EventService;
-        $newEventsSinceLastLogin = $eventService->getEventeSinceLastLogin($userId);
-
+        $newProceedginsSinceLastLogin = session('newProceedginsSinceLastLogin'); 
+        $newUsersSinceLastLogin = session('newUsersSinceLastLogin');
+        $newDocumentsSinceLastLogin = session('newDocumentsSinceLastLogin');
+        $newEventsSinceLastLogin = session('newEventsSinceLastLogin');
+        
         $updateUserLastLogin = $userService->updateLastLoginDate($userId);
         
         return view('admin.index', compact('userProceedings','newProceedginsSinceLastLogin','newUsersSinceLastLogin','newDocumentsSinceLastLogin','newEventsSinceLastLogin'));

@@ -3,7 +3,6 @@
 @section('title', 'Panel de control')
 
 @section('content')
-
 <div class="row">
     <div class="col-md-3">
         <div class="small-box bg-gradient-warning text-white">
@@ -170,7 +169,7 @@
                 ("0" + end.getHours()).slice(-2) + ":" +
                 ("0" + end.getMinutes()).slice(-2);
               swal.fire(
-                startTime+" - "+endTime+" | "+info.event.title
+                startTime+"/"+endTime+" - "+info.event.title
               )
             }
           });
