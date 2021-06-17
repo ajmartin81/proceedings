@@ -41,11 +41,20 @@
                     <div class="col-12">
                         <div class="form-group">
                             <input type="file" class="form-control" name="documento" accept=".jpg,.png,.pdf,.doc,.docx" required>
+                            <small id="fileHelp" class="form-text text-muted">Máx. 5Mb. Formatos permitidos: jpg, png, doc, pdf.</small>
                         </div>
                     </div>
+                    @can('document.hide')
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="checkbox" name="visible" id="visible" value="1">
+                                <label for="visible" class="font-weight-light">Ocultar a los clientes</label>
+                            </div>
+                        </div>
+                    @endcan
                 </div>
                 <div class="row d-flex justify-content-center">
-                    <div class="col-md-4 ">
+                    <div class="col-md-4">
                         <input type="submit" class="btn btn-primary w-100" value="Añadir documento">
                     </div>
                 </div>

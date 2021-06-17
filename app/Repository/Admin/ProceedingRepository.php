@@ -65,7 +65,11 @@ class ProceedingRepository {
     public function setStatus($status, $proceedingId)
     {
         $proceeding = $this->getProceedingById($proceedingId);
-        $newStatus = ['status' => $status];
+        $newStatus['status'] = $status;
+
+        if($status == 'Cerrado'){
+            $newStatus['end_at'] = now();
+        }
 
         $proceeding->update($newStatus);
 

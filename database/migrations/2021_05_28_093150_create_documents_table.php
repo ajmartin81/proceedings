@@ -20,6 +20,7 @@ class CreateDocumentsTable extends Migration
             $table->text('url');
             $table->foreignId('proceeding_id');
             $table->foreignId('user_id');
+            $table->integer('visible')->default(0);
             $table->timestamps();
 
             $table->foreign('proceeding_id')->references('id')->on('proceedings')->onDelete('cascade');

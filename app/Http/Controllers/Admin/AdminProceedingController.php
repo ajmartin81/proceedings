@@ -58,7 +58,14 @@ class AdminProceedingController extends Controller
     {
         $proceeding = $this->proceedingService->getProceedingById($proceedingId);
 
-        return view('admin.proceedings.proceeding', compact('proceeding'));
+        $proceedingClients = [];
+        foreach($proceeding->users as $client){
+            if($client->hasRole('Cliente')){
+                array_push($proceedingClients,$client);
+            }
+        }
+
+        return view('admin.proceedings.proceeding', compact('proceeding','proceedingClients'));
     }
 
     
@@ -78,7 +85,14 @@ class AdminProceedingController extends Controller
 
         $proceeding = $this->proceedingService->updateProceeding($data, $proceedingId);
 
-        return view('admin.proceedings.proceeding', compact('proceeding'));
+        $proceedingClients = [];
+        foreach($proceeding->users as $client){
+            if($client->hasRole('Cliente')){
+                array_push($proceedingClients,$client);
+            }
+        }
+
+        return view('admin.proceedings.proceeding', compact('proceeding','proceedingClients'));
     }
 
     public function destroy(Proceeding $proceeding)

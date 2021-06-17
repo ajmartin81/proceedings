@@ -20,6 +20,10 @@ class DocumentRepository {
             $data['proceeding_id'] = $proceedingId;
             $data['user_id'] = Auth::id();
 
+            if($request->get('visible')){
+                $data['visible'] = intval($request->input('visible'));
+            }
+            
             if (Storage::putFileAs('public/'.$proceedingId.'/', $file, $url)){
                 $document = Document::updateOrCreate($data);
             }
@@ -35,6 +39,31 @@ class DocumentRepository {
         $document = Document::findOrFail($documentId);
         
         return $document;
+    }
+
+    public function updateDocument($documentId)
+    {
+        $document = $this->getDocument($documentId);
+
+        if($document->visible == 0){
+            $document->update(['visible' => 1]);
+        }else{
+            $document->update(['visible' => 0]);
+        }
+
+        return $document;
+    }
+
+    public function deleteDocument($documentId)
+    {
+        $document = $this->getDocument($documentId);
+
+        if (Storage::delete('public/'.$document->proceeding_id.'/'.$document->url)){
+            $document->delete();
+            return $document;
+        }
+    
+        return null;
     }
     
     public function getDocumentsSinceLastLogin($userId)

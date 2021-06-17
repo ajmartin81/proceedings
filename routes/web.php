@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{proceedingId}/document/upload', [AdminDocumentController::class, 'create'])->name('document.create');
         Route::post('{proceedingId}/document/upload', [AdminDocumentController::class, 'store'])->name('document.store');
         Route::get('document/{documentId}/download', [AdminDocumentController::class, 'show'])->name('document.show');
+        Route::put('document/{documentId}/update', [AdminDocumentController::class, 'update'])->name('document.update');
+        Route::delete('document/{documentId}/delete', [AdminDocumentController::class, 'destroy'])->name('document.delete');
 
         Route::get('{proceedingId}/annotation/add', [AdminAnnotationController::class, 'create'])->name('annotation.create');
         Route::post('{proceedingId}/annotation/add', [AdminAnnotationController::class, 'store'])->name('annotation.store');

@@ -49,18 +49,31 @@ class AdminDocumentController extends Controller
         return abort(403);
     }
 
-    public function edit(Document $document)
+    public function update($documentId)
     {
-        //
+        $document = $this->documentService->getDocument($documentId);
+        $user = User::find(Auth::id());
+
+        if(Auth::id() == $document->user_id || $user->can('document.hide')){
+            $updatedDocument = $this->documentService->updateDocument($documentId);
+
+            return response('Estado actualizado',200);
+        }
+
+        return response()->header('Content-Type', 'text/plain');
     }
 
-    public function update(Request $request, Document $document)
+    public function destroy($documentId)
     {
-        //
-    }
+        $document = $this->documentService->getDocument($documentId);
+        $user = User::find(Auth::id());
 
-    public function destroy(Document $document)
-    {
-        //
+        if(Auth::id() == $document->user_id || $user->can('document.hide')){
+            $deletedDocument = $this->documentService->deleteDocument($documentId);
+
+            return response('Estado actualizado',200);
+        }
+
+        return response()->header('Content-Type', 'text/plain');
     }
 }

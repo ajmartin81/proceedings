@@ -36,5 +36,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'annotation.add'])->syncRoles([$abogado, $colaborador]);
         Permission::create(['name' => 'annotation.edit'])->syncRoles([$abogado, $colaborador]);
         Permission::create(['name' => 'annotation.destroy'])->syncRoles([$abogado]);
+
+        Permission::create(['name' => 'document.hide'])->syncRoles([$abogado, $colaborador]);
     }
 }

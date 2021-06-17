@@ -38,22 +38,17 @@
                                         {{ $proceeding->description }}
                                     </p>
                                     <p>
-                                        @if($proceeding->users->count() > 1)
+                                        @if(count($proceedingClients) > 1)
                                             <strong>Clientes: </strong>
                                         @else
                                             <strong>Cliente: </strong> 
                                         @endif
                 
-                                        @foreach($proceeding->users as $user)
-                                            @if(!$loop->first && $loop->count > 1 && $user->hasRole('Cliente'))
+                                        @foreach($proceedingClients as $user)
+                                            @if(!$loop->first && $loop->count > 1)
                                                 ,
                                             @endif
-                                            @if($user->hasRole('Cliente'))
                                                 {{ $user->name }} {{ $user->surname }}
-                                            @endif
-                                            @if($loop->last)
-                                                .
-                                            @endif
                                         @endforeach
                                     </p>
                                     @if($proceeding->site)
@@ -105,7 +100,7 @@
                                             </div>
                                             <div class="col-1">
                                                 @if(Auth::id() == $annotation->user_id || auth()->user()->can('annotation.edit'))
-                                                    <a href="{{ route('annotation.edit', ['annotationId' => $annotation->id]) }}" class="text-secondary" title="Modificar anotación"><i class="fas fa-calendar-check"></i></a>
+                                                    <a href="{{ route('annotation.edit', ['annotationId' => $annotation->id]) }}" class="text-secondary" title="Modificar anotación"><i class="fas fa-edit"></i></a>
                                                 @endif
                                             </div>
                                             <div class="col-1">
@@ -153,7 +148,7 @@
                                             </div>
                                             <div class="col-1">
                                                 @if(Auth::id() == $event->user_id || auth()->user()->can('event.edit'))
-                                                    <a href="{{ route('event.edit', ['eventId' => $event->id]) }}" class="text-secondary" title="Modificar evento"><i class="fas fa-calendar-check"></i></a>
+                                                    <a href="{{ route('event.edit', ['eventId' => $event->id]) }}" class="text-secondary" title="Modificar evento"><i class="fas fa-edit"></i></a>
                                                 @endif
                                             </div>
                                             <div class="col-1">
@@ -199,12 +194,26 @@
                                         </thead>
                                         <tbody>
                                             @foreach($proceeding->documents as $document)
-                                                <tr>
-                                                    <td>{{ $document->title }}</td>
-                                                    <td class="d-flex justify-content-end">
-                                                        <a href="{{ route('document.show', ['documentId' => $document->id]) }}" class="text-success" title="Descargar documentación"><i class="fas fa-file-download"></i></a>
-                                                    </td>
-                                                </tr>
+                                                @if(!$document->visible || auth()->user()->can('document.hide'))
+                                                    <tr id="document{{ $document->id }}">
+                                                        <td><a href="{{ route('document.show', ['documentId' => $document->id]) }}" title="Descargar documento">{{ $document->title }}</a></td>
+                                                        <td class="d-flex justify-content-end">
+                                                            
+                                                            @can('document.hide')
+                                                                <a href="{{ route('document.update', ['documentId' => $document->id]) }}" class="text-primary update-document" data-id="document{{ $document->id }}hide" id="document{{ $document->id }}hide" title="Mostrar/ocultar a los clientes">
+                                                                    @if($document->visible)
+                                                                        <i class="fas fa-eye-slash"></i>
+                                                                    @else
+                                                                        <i class="far fa-eye"></i>
+                                                                    @endif
+                                                                </a>
+                                                            @endcan
+                                                            @if(Auth::id() == $document->user_id || auth()->user()->can('admin'))
+                                                                <a href="{{ route('document.delete', ['documentId' => $document->id]) }}" class="text-danger delete-confirm ml-3" data-id="document{{ $document->id }}" title="Eliminar documento"><i class="fas fa-trash-alt"></i></a>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -400,5 +409,38 @@
             }
         });
     });
+    @can('document.hide')
+        $('.update-document').on('click', function (event) {
+            event.preventDefault();
+            const document_url = $(this).attr('href');
+            const current_document = '#' + $(this).attr('data-id');
+            $.ajax({
+                url: document_url,
+                type: "PUT",
+                data:{
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response){
+                    if($(current_document).html().includes('slash')){
+                        $(current_document).html('<i class="far fa-eye"></i>');
+                    }else{
+                        $(current_document).html('<i class="far fa-eye-slash"></i>');
+                    }
+                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Actualizado'
+                    })
+                    
+                },
+                error: function(response){
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Error'
+                    })
+                }
+            })
+        });
+    @endcan
 </script>
 @stop

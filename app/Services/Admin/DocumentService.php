@@ -22,6 +22,16 @@ class DocumentService {
         return $this->documentRepository->getDocument($documentId);
     }
 
+    public function updateDocument($documentId)
+    {
+        return $this->documentRepository->updateDocument($documentId);
+    }
+
+    public function deleteDocument($documentId)
+    {
+        return $this->documentRepository->deleteDocument($documentId);
+    }
+
     public function getDocumentsSinceLastLogin($userId)
     {
         return $this->documentRepository->getDocumentsSinceLastLogin($userId);
