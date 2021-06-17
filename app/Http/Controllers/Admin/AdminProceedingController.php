@@ -7,7 +7,6 @@ use App\Models\Proceeding;
 use App\Services\Admin\ProceedingService;
 use App\Services\Admin\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AdminProceedingController extends Controller
 {
@@ -51,7 +50,14 @@ class AdminProceedingController extends Controller
 
         $proceeding = $this->proceedingService->addProceeding($data, $userId);
         
-        return view('admin.proceedings.proceeding', compact('proceeding'));
+        $proceedingClients = [];
+        foreach($proceeding->users as $client){
+            if($client->hasRole('Cliente')){
+                array_push($proceedingClients,$client);
+            }
+        }
+
+        return view('admin.proceedings.proceeding', compact('proceeding','proceedingClients'));
     }
 
     public function show($proceedingId)
@@ -95,9 +101,28 @@ class AdminProceedingController extends Controller
         return view('admin.proceedings.proceeding', compact('proceeding','proceedingClients'));
     }
 
-    public function destroy(Proceeding $proceeding)
+    public function delete($proceedingId)
     {
-        //
+        $proceeding = $this->proceedingService->getProceedingById($proceedingId);
+
+        return view('admin.proceedings.delete', compact('proceeding'));
+    }
+
+    public function destroy(Request $request, $proceedingId)
+    {
+        $confirm = $request->get('confirm');
+
+        $proceeding = $this->proceedingService->getProceedingById($proceedingId);
+
+        if($proceeding->reference == $confirm){
+            $deletedProceeding = $this->proceedingService->deleteProceeding($proceeding);
+        }
+        
+        if($deletedProceeding){
+            return redirect()->route('dashboard');
+        }
+
+        return redirect()->back();
     }
 
     public function listUsersForProceeding($proceedingId)

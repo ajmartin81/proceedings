@@ -5,6 +5,7 @@ namespace App\Repository\Admin;
 use App\Models\Proceeding;
 use App\Repository\Admin\UserRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProceedingRepository {
 
@@ -60,6 +61,17 @@ class ProceedingRepository {
         $proceeding->update($data);
 
         return $proceeding;
+    }
+
+    public function deleteProceeding(Proceeding $proceeding)
+    {
+        if(Storage::deleteDirectory('public/'.$proceeding->id)){
+            $deletedProceeding = $proceeding->delete();
+
+            return $deletedProceeding;
+        }
+        
+        return null;
     }
 
     public function setStatus($status, $proceedingId)

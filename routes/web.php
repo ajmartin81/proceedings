@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('{proceedingId}/users', [AdminProceedingController::class, 'listUsersForProceeding'])->name('proceeding.users.show');
             Route::post('{proceedingId}/users', [AdminProceedingController::class, 'addUserToProceeding'])->name('proceeding.users.add');
             Route::delete('{proceedingId}/users', [AdminProceedingController::class, 'deleteUserFromProceeding'])->name('proceeding.users.delete');
+            Route::get('{proceedingId}/delete', [AdminProceedingController::class, 'delete'])->name('proceeding.delete');
+            Route::delete('{proceedingId}/delete', [AdminProceedingController::class, 'destroy'])->name('proceeding.destroy');
         });
 
         Route::get('{proceedingId}', [AdminProceedingController::class, 'show'])->name('proceeding.show');

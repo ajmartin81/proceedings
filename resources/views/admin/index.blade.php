@@ -13,9 +13,6 @@
             <div class="icon">
               <i class="fas fa-folder-open"></i>
             </div>
-            <a href="#" class="small-box-footer">
-              Ver nuevos expedientes <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
     </div>
     <div class="col-md-3">
@@ -27,9 +24,6 @@
             <div class="icon">
               <i class="fas fa-user-plus"></i>
             </div>
-            <a href="#" class="small-box-footer">
-              Ver nuevos usuarios <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
     </div>
     <div class="col-md-3">
@@ -41,9 +35,6 @@
             <div class="icon">
                 <i class="fas fa-file-alt"></i>
             </div>
-            <a href="#" class="small-box-footer">
-              Ver nuevos documentos <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
     </div>
     <div class="col-md-3">
@@ -55,9 +46,6 @@
             <div class="icon">
                 <i class="fas fa-calendar-alt"></i>
             </div>
-            <a href="#" class="small-box-footer">
-              Ver nuevos eventos <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
     </div>
 </div>

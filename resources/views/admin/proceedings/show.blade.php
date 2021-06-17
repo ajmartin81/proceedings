@@ -40,7 +40,8 @@
                                 <a href="{{ route('document.create', ['proceedingId' => $proceeding->id]) }}" class="text-success mr-3" title="Subir documentación"><i class="fas fa-file-upload"></i></a>
                                 <a href="{{ route('annotation.create', ['proceedingId' => $proceeding->id]) }}" class="text-secondary mr-3" title="Añadir anotación"><i class="fas fa-file-alt"></i></a>
                                 <a href="{{ route('event.create', ['proceedingId' => $proceeding->id]) }}" class="text-secondary mr-3" title="Añadir evento"><i class="fas fa-calendar-plus"></i></a>
-                                <a href="{{ route('proceeding.show', ['proceedingId' => $proceeding->id]) }}" class="text-info" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
+                                <a href="{{ route('proceeding.show', ['proceedingId' => $proceeding->id]) }}" class="text-info mr-3" title="Ver expediente"><i class="fas fa-folder-open"></i></a>
+                                <a href="{{ route('proceeding.delete', ['proceedingId' => $proceeding->id]) }}" class="text-danger" title="Eliminar expediente"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     @endforeach

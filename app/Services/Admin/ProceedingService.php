@@ -3,6 +3,7 @@
 namespace App\Services\Admin;
 
 use App\Repository\Admin\ProceedingRepository;
+use App\Models\Proceeding;
 
 class ProceedingService {
     protected $proceedingRepository;
@@ -45,6 +46,11 @@ class ProceedingService {
     public function updateProceeding($data, $proceedingId)
     {
         return $this->proceedingRepository->updateProceeding($data, $proceedingId);
+    }
+
+    public function deleteProceeding(Proceeding $proceeding)
+    {
+        return $this->proceedingRepository->deleteProceeding($proceeding);
     }
 
     public function setStatus($status, $proceedingId)
