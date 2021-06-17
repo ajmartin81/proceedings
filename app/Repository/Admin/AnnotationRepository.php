@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AnnotationRepository {
 
+    public function getAnnotation($annotationId)
+    {
+        $annotation = Annotation::findOrFail($annotationId);
+        return $annotation;
+    }
+
     public function getProceedingAnnotationsById($proceedingId)
     {
         $annotations = Annotation::where('proceeding_id', $proceedingId)->get();
@@ -23,6 +29,24 @@ class AnnotationRepository {
 
         $annotation = Annotation::updateOrCreate($data);
 
+        return $annotation;
+    }
+
+    public function updateAnnotation($data, $annotationId)
+    {
+        $annotation = $this->getAnnotation($annotationId);
+
+        $annotation->update($data);
+
+        return $annotation;
+    }
+
+    public function deleteAnnotation($annotationId)
+    {
+        $annotation = $this->getAnnotation($annotationId);
+
+        $annotation->delete();
+        
         return $annotation;
     }
 }

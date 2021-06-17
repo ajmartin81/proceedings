@@ -39,23 +39,27 @@ class AdminAnnotationController extends Controller
         return redirect()->route('proceeding.show', ['proceedingId' => $proceedingId]);
     }
 
-    public function show(Annotation $annotation)
+    public function edit($annotationId)
     {
-        //
+        $annotation = $this->annotationService->getAnnotation($annotationId);
+
+        return view('admin.annotations.edit', compact('annotation'));
     }
 
-    public function edit(Annotation $annotation)
+    public function update(Request $request, $annotationId)
     {
-        //
+        $data['title']      = $request->get('titulo');
+        $data['description']= $request->get('descripcion');
+
+        $annotation = $this->annotationService->updateAnnotation($data, $annotationId);
+        
+        return redirect()->route('proceeding.show', ['proceedingId' => $annotation->proceeding_id]);
     }
 
-    public function update(Request $request, Annotation $annotation)
+    public function destroy($annotationId)
     {
-        //
-    }
+        $annotation = $this->annotationService->deleteAnnotation($annotationId);
 
-    public function destroy(Annotation $annotation)
-    {
-        //
+        return response('Anotación eliminada',200)->header('Content-Type', 'text/plain');;
     }
 }

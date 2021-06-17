@@ -2,6 +2,13 @@
 
 @section('title', 'Expediente '.$proceeding->reference )
 
+@section('css')
+    <style>
+        .show-read-more .more-text{
+            display: none;
+        }
+    </style>
+@stop
 @section('content')
 
     <div class="row">
@@ -27,7 +34,7 @@
                                 <div class="card-body">
                                     <h4>{{ $proceeding->title }}</h4>
                 
-                                    <p>
+                                    <p class="show-read-more">
                                         {{ $proceeding->description }}
                                     </p>
                                     <p>
@@ -38,11 +45,14 @@
                                         @endif
                 
                                         @foreach($proceeding->users as $user)
+                                            @if(!$loop->first && $loop->count > 1 && $user->hasRole('Cliente'))
+                                                ,
+                                            @endif
                                             @if($user->hasRole('Cliente'))
                                                 {{ $user->name }} {{ $user->surname }}
-                                                @if($loop->count > 1 && !$loop->last && $user->hasRole('Cliente'))
-                                                    ,
-                                                @endif
+                                            @endif
+                                            @if($loop->last)
+                                                .
                                             @endif
                                         @endforeach
                                     </p>
@@ -86,11 +96,24 @@
                                 </div>
                                 <div class="card-body">
                                     @foreach($proceeding->annotations as $annotation)
-                                        <p>
-                                            <strong>{{ $annotation->title }} :</strong>
-                                            {{ $annotation->description}}
-                                        </p>
-                                        
+                                        <div class="row" id="annotation{{ $annotation->id }}">
+                                            <div class="col-10">
+                                                <strong>{{ $annotation->title }} :</strong>
+                                                <span class="show-read-more">
+                                                     {{ $annotation->description}}
+                                                </span>
+                                            </div>
+                                            <div class="col-1">
+                                                @if(Auth::id() == $annotation->user_id || auth()->user()->can('annotation.edit'))
+                                                    <a href="{{ route('annotation.edit', ['annotationId' => $annotation->id]) }}" class="text-secondary" title="Modificar anotación"><i class="fas fa-calendar-check"></i></a>
+                                                @endif
+                                            </div>
+                                            <div class="col-1">
+                                                @if(Auth::id() == $annotation->user_id || auth()->user()->can('annotation.destroy'))
+                                                    <a href="{{ route('annotation.delete', ['annotationId' => $annotation->id]) }}" class="text-danger delete-confirm" data-id="annotation{{ $annotation->id }}" title="Eliminar anotación"><i class="fas fa-trash-alt"></i></a>
+                                                @endif
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                                 <div class="card-footer">
@@ -122,8 +145,10 @@
                                             <div class="col-10">
                                                 <strong>{{ $event->start }} | {{ $event->title }}</strong>
                                                 @if($event->description)
-                                                <br>
+                                                <p class="show-read-more">
                                                     {{ $event->description }}
+                                                </p>
+                                                    
                                                 @endif
                                             </div>
                                             <div class="col-1">
@@ -132,7 +157,7 @@
                                                 @endif
                                             </div>
                                             <div class="col-1">
-                                                @if(Auth::id() == $event->user_id || auth()->user()->can('event.delete'))
+                                                @if(Auth::id() == $event->user_id || auth()->user()->can('event.destroy'))
                                                     <a href="{{ route('event.delete', ['eventId' => $event->id]) }}" class="text-danger delete-confirm" data-id="event{{ $event->id }}" title="Eliminar evento"><i class="fas fa-trash-alt"></i></a>
                                                 @endif
                                             </div>
@@ -243,6 +268,24 @@
 @section('js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    $(document).ready(function(){
+        var maxLength = 200;
+        $(".show-read-more").each(function(){
+            var myStr = $(this).text();
+            if(myStr.length > maxLength){
+                var newStr = myStr.substring(0, maxLength);
+                var removedStr = myStr.substring(maxLength, myStr.length);
+                $(this).empty().html(newStr);
+                $(this).append(' <a href="javascript:void(0);" class="read-more">ver más...</a>');
+                $(this).append('<span class="more-text">' + removedStr + '</span>');
+            }
+        });
+        $(".read-more").click(function(){
+            $(this).siblings(".more-text").contents().unwrap();
+            $(this).remove();
+        });
+    });
+
     $('#documentos').DataTable({
         responsive: true,
         columnDefs: [
@@ -275,7 +318,7 @@
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1500,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -323,7 +366,7 @@
         const current_event = '#' + $(this).attr('data-id');
         Swal.fire({
             title: '¿Deseas continuar?',
-            text: 'El evento se borrará de forma permanente',
+            text: 'La entrada se borrará de forma permanente',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -343,14 +386,14 @@
                     
                     Toast.fire({
                         icon: 'success',
-                        title: 'Se eliminó el evento'
+                        title: 'Eliminado'
                     })
                     
                 },
                 error: function(response){
                     Toast.fire({
                         icon: 'error',
-                        title: 'No se eliminó el evento'
+                        title: 'Error'
                     })
                 }
             })

@@ -40,7 +40,6 @@ Route::middleware(['auth'])->group(function () {
             Route::post('{proceedingId}/users', [AdminProceedingController::class, 'addUserToProceeding'])->name('proceeding.users.add');
             Route::delete('{proceedingId}/users', [AdminProceedingController::class, 'deleteUserFromProceeding'])->name('proceeding.users.delete');
         });
-        
 
         Route::get('{proceedingId}', [AdminProceedingController::class, 'show'])->name('proceeding.show');
 
@@ -50,12 +49,15 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('{proceedingId}/annotation/add', [AdminAnnotationController::class, 'create'])->name('annotation.create');
         Route::post('{proceedingId}/annotation/add', [AdminAnnotationController::class, 'store'])->name('annotation.store');
+        Route::get('annotation/{annotationId}/edit', [AdminAnnotationController::class, 'edit'])->name('annotation.edit');
+        Route::put('annotation/{annotationId}/update', [AdminAnnotationController::class, 'update'])->name('annotation.update');
+        Route::delete('annotation/{annotationId}/delete', [AdminAnnotationController::class, 'destroy'])->name('annotation.delete');
 
         Route::get('{proceedingId}/event/add', [AdminEventController::class, 'create'])->middleware('can:event.add')->name('event.create');
         Route::post('{proceedingId}/event/add', [AdminEventController::class, 'store'])->middleware('can:event.add')->name('event.store');
         Route::get('event/{eventId}/edit', [AdminEventController::class, 'edit'])->middleware('can:event.edit')->name('event.edit');
         Route::put('event/{eventId}/update', [AdminEventController::class, 'update'])->middleware('can:event.edit')->name('event.update');
-        Route::delete('event/{eventId}/delete', [AdminEventController::class, 'destroy'])->middleware('can:event.edit')->name('event.delete');
+        Route::delete('event/{eventId}/delete', [AdminEventController::class, 'destroy'])->middleware('can:event.destroy')->name('event.delete');
 
         Route::post('{proceedingId}/status', [AdminProceedingController::class, 'updateStatus'])->middleware('can:status.edit')->name('status.update');
     });
