@@ -113,6 +113,7 @@ class AdminProceedingController extends Controller
         $confirm = $request->get('confirm');
 
         $proceeding = $this->proceedingService->getProceedingById($proceedingId);
+        $deletedProceeding = null;
 
         if($proceeding->reference == $confirm){
             $deletedProceeding = $this->proceedingService->deleteProceeding($proceeding);
