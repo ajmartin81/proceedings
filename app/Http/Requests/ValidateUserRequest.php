@@ -6,21 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ValidateUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+    
     public function authorize()
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -34,17 +25,17 @@ class ValidateUserRequest extends FormRequest
     }
 
     public function messages()
-{
-    return [
-        'email.required'    => 'Debe introducir un email.',
-        'email.email'       => 'Debe introducir un email válido.',
-        'email.exists'      => 'El email indicado no existe en nuestra base de datos.', 
-        'password.required' => 'Debe introducir una contraseña.',
-        'password.min'      => 'La contraseña de tener una longitud de 8 carácteres como mínimo.',
-        'password.regex'    => 'La contraseña debe contener al menos 3 letras, un número y un caracter expecial !$#%&.',
-        'password_confirmation.required' => 'Debe confirmar la contraseña.',
-        'password_confirmation.same'    => 'Las contraseñas deben ser iguales.',
-        'rgpd.required'     => 'Debe aceptar la política de protección de datos.'
-    ];
-}
+    {
+        return [
+            'email.required'    => 'Debe introducir un email.',
+            'email.email'       => 'Debe introducir un email válido.',
+            'email.exists'      => 'El email indicado no existe en nuestra base de datos.', 
+            'password.required' => 'Debe introducir una contraseña.',
+            'password.min'      => 'La contraseña de tener una longitud de 8 carácteres como mínimo.',
+            'password.regex'    => 'La contraseña debe contener al menos 3 letras, un número y un caracter expecial !$#%&.',
+            'password_confirmation.required' => 'Debe confirmar la contraseña.',
+            'password_confirmation.same'    => 'Las contraseñas deben ser iguales.',
+            'rgpd.required'     => 'Debe aceptar la política de protección de datos.'
+        ];
+    }
 }

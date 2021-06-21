@@ -8,7 +8,6 @@ use App\Services\Admin\EventService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Admin\ProceedingService;
 use App\Services\Admin\UserService;
-use Illuminate\Http\Request;
 
 class AdminHomeController extends Controller
 {

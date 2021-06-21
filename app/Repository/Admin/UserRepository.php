@@ -2,9 +2,7 @@
 
 namespace App\Repository\Admin;
 
-use App\Models\Document;
 use App\Models\User;
-use App\Models\Proceeding;
 use Spatie\Permission\Models\Role;
 
 class UserRepository {
@@ -39,9 +37,9 @@ class UserRepository {
     public function addUser($data, $rol)   
     {
         $isEmailRegistered = User::where('email', $data['email'])->first();
-        $isNifRegistred = User::where('nif', $data['nif'])->first();
+        $isNifRegistered = User::where('nif', $data['nif'])->first();
 
-        if(!$isEmailRegistered && !$isNifRegistred){
+        if(!$isEmailRegistered && !$isNifRegistered){
             $newUser = User::updateOrCreate($data);
             $newUser->roles()->Sync($rol);
 

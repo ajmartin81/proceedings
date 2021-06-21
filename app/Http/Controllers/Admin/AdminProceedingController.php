@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Proceeding;
 use App\Services\Admin\ProceedingService;
 use App\Services\Admin\UserService;
 use Illuminate\Http\Request;

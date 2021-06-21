@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Services\Admin\UserService;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
@@ -49,11 +47,6 @@ class AdminUserController extends Controller
         return redirect()->back();
     }
 
-    public function show(User $user)
-    {
-        //
-    }
-
     public function edit($userId)
     {
         $user = $this->userService->getUserById($userId);
@@ -79,10 +72,5 @@ class AdminUserController extends Controller
         }
         
         return redirect()->back()->with('error','No se pudo actualizar la información');
-    }
-
-    public function destroy(User $user)
-    {
-        //
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Annotation;
 use App\Models\Proceeding;
 use App\Services\Admin\AnnotationService;
 use App\Services\Admin\ProceedingService;
@@ -17,12 +16,7 @@ class AdminAnnotationController extends Controller
     {
         $this->annotationService = new AnnotationService;
     }
-
-    public function index()
-    {
-        //
-    }
-
+    
     public function create($proceedingId)
     {
         $proceedingService = new ProceedingService;

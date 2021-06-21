@@ -357,7 +357,6 @@
                         icon: 'success',
                         title: 'Estado actualizado'
                     })
-                    
                 },
                 error: function(response){
                     Toast.fire({

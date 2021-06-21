@@ -44,6 +44,7 @@
                             <small id="fileHelp" class="form-text text-muted">Máx. 5Mb. Formatos permitidos: jpg, png, doc, pdf.</small>
                         </div>
                     </div>
+
                     @can('document.hide')
                         <div class="col-12">
                             <div class="form-group">
@@ -52,13 +53,13 @@
                             </div>
                         </div>
                     @endcan
+                    
                 </div>
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-4">
                         <input type="submit" class="btn btn-primary w-100" value="Añadir documento">
                     </div>
                 </div>
-                
             </form>
             
         </div>

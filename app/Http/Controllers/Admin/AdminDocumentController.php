@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\ProceedingService;
 use App\Services\Admin\DocumentService;
-use App\Models\Document;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Requests\DocumentRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,7 +55,7 @@ class AdminDocumentController extends Controller
         if(Auth::id() == $document->user_id || $user->can('document.hide')){
             $updatedDocument = $this->documentService->updateDocument($documentId);
 
-            return response('Estado actualizado',200);
+            return response('Estado actualizado',200)->header('Content-Type', 'text/plain');
         }
 
         return response()->header('Content-Type', 'text/plain');
@@ -71,7 +69,7 @@ class AdminDocumentController extends Controller
         if(Auth::id() == $document->user_id || $user->can('document.hide')){
             $deletedDocument = $this->documentService->deleteDocument($documentId);
 
-            return response('Estado actualizado',200);
+            return response('Estado actualizado',200)->header('Content-Type', 'text/plain');
         }
 
         return response()->header('Content-Type', 'text/plain');
